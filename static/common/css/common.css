@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+#box {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 1140px;
+    margin: 0 auto;
+    /* position: relative; */
+}
+
+/* 头部的样式 */
+.header {
+    height: 80px;
+    background-color: aquamarine;
+    background: url("/static/common/img/head.png") no-repeat;
+    background-size: 100%;
+}
+
+/* 头部左边导航栏 */
+.header .header-left li {
+    height: 40px;
+    width: 80px;
+    float: left;
+    text-align: center;
+    margin-left: 100px;
+    margin-top: 19px;
+    background-color: #ED7D31;
+    border: 1px solid #ED7D31;
+    border-radius: 20px;
+}
+
+.header .header-left li a {
+    display: block;
+    height: 40px;
+    width: 80px;
+    line-height: 40px;
+    color: darkslategrey;
+}
+
+.header .header-left li:hover {
+    background-color: #ED7D31;
+}
+
+.header .header-left li:nth-child(1) {
+    margin-left: 0;
+}
+
+.header .header-left li:last-child {
+    background-color: gainsboro;
+}
+
+.header .header-left li:hover {
+    background-color: #f0f1f2;
+}
+
+.header .header-right .headimg {
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
+    margin-right: 50px;
+    /* margin-top: 17px; */
+}
+
+.header .header-right {
+    /* position: absolute; */
+    /* right: 40px; */
+    float: right;
+
+    margin-top: 17px;
+    /* margin-right: 30px; */
+    /* width: 90px; */
+}
+.header .header-right .head-mess {
+    /* float: left; */
+    border-radius: 15px;
+    width: 90px;
+    text-align: center;
+    background-color: #fff;
+    height: 130px;
+    display: none;
+    margin-right: 28px;
+    margin-top: 48px;
+}
+
+.header .header-right li:first-child a {
+    margin-top: 5px;
+}
+
+.header .header-right li a {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #636060;
+    border-radius: 10px;
+}
+
+.header .header-right li a:hover {
+    background-color: coral;
+    /* color: rgb(47, 163, 62); */
+}
+
+.content {
+    height: 500px;
+    background-color: antiquewhite;
+}
+
+/* 底部样式 */
+.bottom {
+    width: 100%;
+    background-color: #515151;
+    /* margin-top: 10px; */
+}
+
+.bottom .bannerd {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.bottom .bannerd .bannerdt {
+    height: 127px;
+    width: 100%;
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.bottom .bannerd .bannerdt .banttt {
+    width: 300px;
+    height: 55px;
+    float: left;
+    margin-left: 60px;
+    margin-top: 37px;
+}
+
+.bottom .bannerd .bannerdt .bant1 img {
+    margin-top: -20px;
+    border-radius: 50px;
+}
+
+.bottom .bannerd .bannerdt .bant2 li {
+    float: left;
+    font-size: 14px;
+    color: #fff;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.bottom .bannerd .bannerdt .bant2 li:first-child {
+    margin-left: 0;
+}
+
+.bottom .bannerd .bannerdt .bant2 a {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.bottom .bannerd .bannerdt .bant2 li:last-child a {
+    margin-right: 0;
+}
+
+.bottom .bannerd .bannerdt .bant2 .shenhe {
+    float: left;
+    font-size: 12px;
+    color: #999;
+    width: 300px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.bottom .bannerd .bannerdt .bant2 .shenhe span {
+    margin-right: 23px;
+}
+
+.bottom .bannerd .bannerdt .bant3 {
+    line-height: 55px;
+    margin-left: 120px;
+}
+
+.bottom .bannerd .bannerdt .bant3 .guanwo {
+    float: left;
+    color: #fff;
+}
+
+.bottom .bannerd .bannerdt .bant3 .guanzhu img {
+    width: 127px;
+    margin-top: -35px;
+    margin-left: 40px;
+}
+
+.bottom .bannerd .bannerdb {
+    height: 73px;
+    width: 100%;
+    font-size: 12px;
+    color: #999;
+    margin-top: 16px;
+}
+
+.bottom .bannerd .bannerdb .banndbt a {
+    margin-right: 18px;
+    color: #999;
+}
+
+.bottom .bannerd .bannerdb .banndbt .zzz {
+    float: left;
+    margin-left: 60px;
+}
+
+.bottom .bannerd .bannerdb .banndbt li {
+    float: left;
+    margin-left: 18px;
+}
+
+#mid {
+    width: 100%;
+    height: 800px;
+    background-color: #ED7D31;
+}
