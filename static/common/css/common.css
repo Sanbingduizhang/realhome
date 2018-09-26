@@ -257,23 +257,22 @@
     background-color: #fff;
     left: 50%;
     top: 50%;
-    margin-left: -200px;
-    margin-top: -200px;
+    margin-left: -133px;
+    margin-top: -145px;
     border-radius: 50px;
 }
 
 #bgsub .sub-index .sub-head {
     width: 98px;
-    margin-left: 150px;
-    margin-top: 10px;
+    margin: 10px auto 0px;
     font-size: 20px;
     font-weight: bold;
     color: midnightblue;
 }
 
 #bgsub .sub-index .sub-mid {
-    margin-left: 88px;
-    margin-top: 40px;
+    margin-left: 70px;
+    margin-top: 33px;
     font-size: 18px;
     color: saddlebrown;
 }
@@ -289,10 +288,8 @@
     outline:0;
 }
 #bgsub .sub-index .sub-bottom {
-    /* width: 220px; */
     text-align: center;
     margin-top: 30px;
-    /* margin-left: 88px; */
 }
 #bgsub .sub-index .sub-bottom .submitgo {
     border-radius: 25px;
