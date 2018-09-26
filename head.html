@@ -1,39 +1,63 @@
 <div class='header'>
     <div class='header-left'>
         <ul>
-            <li><a href="">古道人家</a></li>
-            <li><a href="">古道人家</a></li>
-            <li><a href="">古道人家</a></li>
-            <li><a href="">古道人家</a></li>
-            <li><a href="">古道人家</a></li>
-            <li><a href="">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
+            <li><a href="javascript:void(0);">古道人家</a></li>
         </ul>
     </div>
     <div class='header-right'>
         <div class="imghead" isClick="false">
             <img src="static/common/img/userhead.jpg" class="headimg">
         </div>
-        <!-- <ul class='subZhu'>
-                <li class="li1">
-                    <a id='linkZhu' href='javascript:void(0);'>注册</a>
-                </li>
-                <li>
-                    <a id='linkSub' href='javascript:void(0);'>登录</a>
-                </li>
-            </ul> -->
         <div class='head-img' title='头像名称'>
-            <div class="head-mess">
+            <div class="head-mess head-mess-some">
                 <ul>
-                    <li><a href="#">基本资料</a></li>
-                    <li><a href="#">文章信息</a></li>
-                    <li><a href="#">相册信息</a></li>
-                    <li><a href="#" class="loginOut">退出</a></li>
+                    <li><a href="javascript:void(0);">基本资料</a></li>
+                    <li><a href="javascript:void(0);">文章信息</a></li>
+                    <li><a href="javascript:void(0);">相册信息</a></li>
+                    <li><a href="javascript:void(0);" class="loginOut">退出</a></li>
+                </ul>
+            </div>
+            <div class="head-mess head-mess-sub">
+                <ul>
+                    <li><a href="javascript:void(0);" class="submit">登录</a></li>
+                    <li><a href="javascript:void(0);" class="register">注册</a></li>
                 </ul>
             </div>
         </div>
+
     </div>
 </div>
 <script>
-//     var isclick = $(".imghead").attr("isClick");
-// console.log(isclick);
+    //头像下方显示内容的转换
+    var realToken = getRealToken();
+    if (realToken == null || realToken == '') {
+        $(".imghead").attr("isClick", "false");
+    } else {
+        $(".imghead").attr("isClick", "true");
+    }
+    //头像下方显示内容和隐藏
+    $(".imghead").mouseenter(function () {
+        var isclick = $(".imghead").attr("isClick");
+        if (isclick == 'false') {
+            $(".head-mess-sub").show();
+        } else {
+            $(".head-mess-some").show();
+        }
+    });
+    $(".header-right").mouseleave(function () {
+        $(".head-mess").hide();
+    });
+    //注册和登录相关的事件以及跳转
+    //注册
+    $(".register").click(function () {
+        window.open('regsub.html');
+    });
+    $(".submit").click(function () {
+        $("#bgsub").show();
+    });
 </script>
