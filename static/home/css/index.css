@@ -10,11 +10,15 @@
     display: inline-block;
 }
 
+#mid .content .con-left {
+    height: 800px;
+}
+
 #mid .content .con-left .con-left-con {
-    margin: 10px 10px;
+    margin: 5px 10px;
     float: left;
     width: 400px;
-    height: 140px;
+    height: 150px;
     background-color: #F0F1F2;
     border-radius: 20px;
     box-shadow: 1px 1px 1px #999;
@@ -25,11 +29,89 @@
     background-color: antiquewhite;
 }
 
+#mid .content .con-left .con-left-con .suoshu {
+    text-align: right;
+    height: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+#mid .content .con-left .con-left-con .suoshu span {
+    color: #999;
+    font-size: 14px;
+
+}
+
+/* 中间主要文本 */
+#mid .content .con-left .con-left-con .zhucon {
+    height: 100px;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 14px;
+    margin-right: 20px;
+    line-height: 20px;
+}
+
+#mid .content .con-left .con-left-con .zhucon span {
+    text-align: left;
+    background-color: #e0b965;
+}
+
+/* 底下 */
+#mid .content .con-left .con-left-con .other {
+    height: 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+#mid .content .con-left .con-left-con .other p:first-child {
+    float: left;
+    margin-left: 20px;
+}
+
+#mid .content .con-left .con-left-con .other p:last-child {
+    float: right;
+    margin-right: 20px;
+    color: rgb(117, 111, 111);
+}
+
 /* 主页内容右边部分 */
 #mid .content .con-right {
     float: right;
     width: 280px;
     height: 850px;
+}
+
+#mid .content .con-right .con-right-edit {
+    background-color: #F0F1F2;
+    width: 100%;
+    height: 219px;
+    margin-top: 10px;
+    border-radius: 20px;
+    opacity: 0.8;
+}
+
+#mid .content .con-right .con-right-edit .inputmind {
+    margin-top: 10px;
+    width: 260px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+#mid .content .con-right .con-right-edit .pubtext {
+    width: 70px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    background-color: #ED7D31;
+    margin-top: 10px;
+    margin-left: 10px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+#mid .content .con-right .con-right-edit .pubtext:hover {
+    background-color: #F9CC9D;
 }
 
 #mid .content .con-right .con-right-con .con-right-css {
@@ -72,6 +154,10 @@
     font-size: 14px;
 }
 
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p:hover {
+    background-color: #E0B293;
+}
+
 /* 分页的样式--重写 */
 .m-style .active {
     border-radius: 10px;
@@ -84,6 +170,7 @@
 .m-style a:hover {
     background: #e0b965;
 }
+
 .m-style {
     margin-top: 10px;
     margin-right: 13px;

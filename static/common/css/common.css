@@ -4,19 +4,14 @@
     list-style: none;
     text-decoration: none;
 }
-body {
-    /* background-color: #F0F1F2; */
-}
+
 #box {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    /* color: #2c3e50; */
     width: 1140px;
     margin: 0 auto;
-    /* background-color: #F0F1F2; */
-    /* position: relative; */
 }
 
 /* 头部的样式 */
@@ -64,45 +59,46 @@ body {
     background-color: #f0f1f2;
 }
 
+.header .header-right {
+    float: right;
+    margin-top: 17px;
+}
+
 .header .header-right .headimg {
     width: 45px;
     border-radius: 50%;
     cursor: pointer;
     float: right;
     margin-right: 50px;
-    /* margin-top: 17px; */
 }
 
-.header .header-right {
-    /* position: absolute; */
-    /* right: 40px; */
-    float: right;
-
-    margin-top: 17px;
-    /* margin-right: 30px; */
-    /* width: 90px; */
+.header .header-right .head-img {
+    position: absolute;
 }
 
 .header .header-right .head-mess-some {
-    /* float: left; */
     border-radius: 15px;
     width: 90px;
     text-align: center;
     background-color: #fff;
     height: 130px;
     display: none;
-    margin-right: 28px;
+    left: -22px;
     margin-top: 48px;
+    position: relative;
+    z-index: 333;
 }
 
 .header .header-right .head-mess-sub {
+    position: relative;
+    z-index: 333;
     border-radius: 15px;
     width: 90px;
     text-align: center;
     background-color: #fff;
     height: 75px;
     display: none;
-    margin-right: 28px;
+    left: -22px;
     margin-top: 48px;
 }
 
@@ -122,14 +118,12 @@ body {
 
 .header .header-right li a:hover {
     background-color: coral;
-    /* color: rgb(47, 163, 62); */
 }
 
 /* 底部样式 */
 .bottom {
     width: 100%;
     background-color: #515151;
-    /* margin-top: 10px; */
 }
 
 .bottom .bannerd {
@@ -233,8 +227,8 @@ body {
 #bgsub {
     width: 100%;
     height: 100%;
-    background-color: burlywood;
-    opacity: 0.8;
+    background-color: #E0D9D3;
+    opacity: 0.9;
     z-index: 999;
     left: 0%;
     top: 0%;
@@ -253,7 +247,6 @@ body {
     margin-top: -145px;
     border-radius: 50px;
     box-shadow: 5px 5px 5px #888888;
-    /* z-index: 998 */
 }
 
 #bgsub .button-close {
@@ -266,7 +259,6 @@ body {
     line-height: 45px;
     cursor: pointer;
     box-shadow: 2px 2px 2px #888888;
-    /* z-index: 999; */
 }
 
 #bgsub .sub-index .sub-head {

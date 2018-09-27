@@ -3,8 +3,7 @@
 $('.M-box1').pagination({
     totalData: 50,
     showData: 3,
-    current:1,
+    current: 1,
     coping: true,
-    callback:function(api){
-    },
-}); 
+    callback: function (api) {},
+});
