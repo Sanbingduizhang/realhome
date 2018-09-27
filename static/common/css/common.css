@@ -4,15 +4,18 @@
     list-style: none;
     text-decoration: none;
 }
-
+body {
+    /* background-color: #F0F1F2; */
+}
 #box {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     width: 1140px;
     margin: 0 auto;
+    /* background-color: #F0F1F2; */
     /* position: relative; */
 }
 
@@ -122,11 +125,6 @@
     /* color: rgb(47, 163, 62); */
 }
 
-.content {
-    height: 500px;
-    background-color: antiquewhite;
-}
-
 /* 底部样式 */
 .bottom {
     width: 100%;
@@ -231,12 +229,6 @@
     margin-left: 18px;
 }
 
-#mid {
-    width: 100%;
-    height: 800px;
-    background-color: #ED7D31;
-}
-
 /* 登录注册相关展示 */
 #bgsub {
     width: 100%;
@@ -247,7 +239,7 @@
     left: 0%;
     top: 0%;
     position: fixed;
-    /* display: none; */
+    display: none;
 }
 
 #bgsub .sub-index {
@@ -257,9 +249,24 @@
     background-color: #fff;
     left: 50%;
     top: 50%;
-    margin-left: -133px;
+    margin-left: -183px;
     margin-top: -145px;
     border-radius: 50px;
+    box-shadow: 5px 5px 5px #888888;
+    /* z-index: 998 */
+}
+
+#bgsub .button-close {
+    float: right;
+    width: 45px;
+    height: 45px;
+    background-color: rgb(190, 143, 143);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px #888888;
+    /* z-index: 999; */
 }
 
 #bgsub .sub-index .sub-head {
@@ -276,21 +283,25 @@
     font-size: 18px;
     color: saddlebrown;
 }
+
 #bgsub .sub-index .sub-mid p {
     margin-top: 20px;
 }
+
 #bgsub .sub-index .sub-mid .inputsub {
     width: 180px;
     height: 25px;
     background: #10101000;
     border: 1px solid #5f4242;
     border-radius: 7px;
-    outline:0;
+    outline: 0;
 }
+
 #bgsub .sub-index .sub-bottom {
     text-align: center;
     margin-top: 30px;
 }
+
 #bgsub .sub-index .sub-bottom .submitgo {
     border-radius: 25px;
     background-color: #05D9A9;
@@ -302,9 +313,11 @@
     width: 150px;
     margin: 10px auto;
 }
+
 #bgsub .sub-index .sub-bottom .submitgo:hover {
     background-color: #2C95CF;
 }
+
 #bgsub .sub-index .sub-bottom .submitfog {
     margin-top: 15px;
     margin: 10px auto 0px;

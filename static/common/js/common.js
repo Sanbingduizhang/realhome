@@ -1,7 +1,10 @@
 //加在首页和尾页
 $("#top").load("head.html");
 $("#buttom").load("foot.html");
-
+//背景层登陆点击操作
+$(".button-close").click(function () {
+    $("#bgsub").hide();
+});
 
 
 ///////------------方法---------------//1

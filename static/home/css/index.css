@@ -1,0 +1,90 @@
+#mid {
+    width: 100%;
+    height: 860px;
+}
+
+/* 主页内容左边部分 */
+#mid .content .con-left-duo {
+    float: left;
+    width: 850px;
+    display: inline-block;
+}
+
+#mid .content .con-left .con-left-con {
+    margin: 10px 10px;
+    float: left;
+    width: 400px;
+    height: 140px;
+    background-color: #F0F1F2;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px #999;
+    cursor: pointer;
+}
+
+#mid .content .con-left .con-left-con:hover {
+    background-color: antiquewhite;
+}
+
+/* 主页内容右边部分 */
+#mid .content .con-right {
+    float: right;
+    width: 280px;
+    height: 850px;
+}
+
+#mid .content .con-right .con-right-con .con-right-css {
+    background-color: #F0F1F2;
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
+    border-radius: 20px;
+    text-align: left;
+    opacity: 0.8;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all {
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr {
+    padding-left: 20px;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p {
+    width: 220px;
+    height: 30px;
+    background-color: #F0F8FF;
+    margin-top: 10px;
+    line-height: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgb(131, 126, 126);
+    cursor: pointer;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-tou span {
+    cursor: pointer;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p span {
+    padding: 10px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* 分页的样式--重写 */
+.m-style .active {
+    border-radius: 10px;
+}
+
+.m-style a {
+    border-radius: 10px;
+}
+
+.m-style a:hover {
+    background: #e0b965;
+}
+.m-style {
+    margin-top: 10px;
+    margin-right: 13px;
+}
