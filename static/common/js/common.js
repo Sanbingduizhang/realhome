@@ -6,12 +6,14 @@ $(".button-close").click(function () {
     $("#bgsub").hide();
 });
 
+function getBaseUri() {
+    return "http://realadmin.com/";
+}
 
 ///////------------方法---------------//1
 
 //获取拿到的token数据然后写入localStorage
 function getRealToken() {
-    localStorage.setItem('real-home-token', 'fdsfs');
-    localStorage.removeItem('real-home-token');
-    return localStorage.getItem('real-home-token');
+    // localStorage.removeItem('real-home-token');
+    return sessionStorage.getItem('real-home-token', '');
 }

@@ -60,4 +60,50 @@
     $(".submit").click(function () {
         $("#bgsub").show();
     });
+    //登录事件
+    $(".submitgo").click(function () {
+        var user = $("#username").val();
+        var pwd = $("#password").val();
+        // 账号的正则验证
+        var reguser = "^[a-zA-Z]{5,16}$";
+        var reuser = new RegExp(reguser);
+        if (!reuser.test(user)) {
+            alert('账号由5-16位字母组成');
+        }
+        //密码的正则验证
+        // var regepwd =
+        //     "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
+        // var repwd = new RegExp(regepwd);
+        // if (!repwd.test(pwd)) {
+        //     alert("密码由5-16位字母、数字、符号组成");
+        // }
+        //发送登录请求
+        $.ajax({
+            type:"POST",
+            url:getBaseUri() + "base/login",
+            dataType:"json",
+            data:{
+                usercode:user,
+                password:pwd,
+            },
+            success:function (data) {
+                if (data.code == 1) {
+                    localStorage.setItem('real-home-token', data.data.token);
+                    sessionStorage.setItem('real-home-token', data.data.token);
+                    // window.location.reload();
+                    $("#top").load("head.html");
+                    $("#bgsub").hide();
+                } else {
+                    alert(data.message);
+                }
+            },
+            error:function (data) {
+                console.log(data);
+            }
+        });
+        
+
+
+
+    });
 </script>
