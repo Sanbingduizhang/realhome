@@ -15,5 +15,5 @@ function getBaseUri() {
 //获取拿到的token数据然后写入localStorage
 function getRealToken() {
     // localStorage.removeItem('real-home-token');
-    return sessionStorage.getItem('real-home-token', '');
+    return $.cookie('real-home-token');
 }
