@@ -1,21 +1,22 @@
 #mid {
     width: 100%;
-    height: 900px;
+    height: 970px;
 }
 
 /* 主页内容左边部分 */
 #mid .content .con-left-duo {
-    float: left;
+    /* float: left; */
     width: 850px;
     display: inline-block;
 }
 
 #mid .content .con-left {
-    height: 820px;
+    height: 885px;
 }
 #mid .content .con-left-duo .con-left-title{
     height: 30px;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 5px;
     text-align: left;
 }
 #mid .content .con-left-duo .con-left-title span {
@@ -104,7 +105,6 @@
 #mid .content .con-right .con-right-my .my-some-title {
     text-align: left;
     padding-left: 10px;
-    padding-top: 10px;
 }
 #mid .content .con-right .con-right-con .con-right-css {
     background-color: #F0F1F2;

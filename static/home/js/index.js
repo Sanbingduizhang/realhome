@@ -153,8 +153,56 @@ $.ajax({
     }
 });
 
-
-
+//首页个人作品
+function myContent() {
+    var token = getRealToken();
+    if (token == '' || token == 'undefined') {
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "/api/opera/my-contents",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+        success: function (data) {
+            if (data.code != 1) {
+                $(".con-right-myself").html('');
+            }
+            var str = rightTopShow(data.data.data);
+            $(".con-right-myself").html(str);
+            var yema = data.data.pagination;
+            $('.my-box').pagination({
+                pageCount: yema.total_page,
+                // totalData: yema.total,
+                showData: yema.per_page,
+                current: yema.current_page,
+                // coping: true,
+                mode: 'fixed',
+                callback: function (api) {
+                    $.ajax({
+                        type: "GET",
+                        url: getBaseUri() + "/api/opera/my-contents?page=" + api.getCurrent(),
+                        dataType: "json",
+                        headers: {
+                            Authorization: 'Bearer ' + token,
+                        },
+                        success: function (data) {
+                            var str = rightTopShow(data.data.data);
+                            $(".con-right-myself").html(str);
+                        },
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+                        }
+    
+                    });
+                },
+            });
+        }
+    });
+}
+myContent();
 
 
 
