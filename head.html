@@ -1,12 +1,12 @@
 <div class='header'>
     <div class='header-left'>
-        <ul>
+        <ul class="header-left-li">
+            <!-- <li><a href="javascript:void(0);">古道人家</a></li>
             <li><a href="javascript:void(0);">古道人家</a></li>
             <li><a href="javascript:void(0);">古道人家</a></li>
             <li><a href="javascript:void(0);">古道人家</a></li>
             <li><a href="javascript:void(0);">古道人家</a></li>
-            <li><a href="javascript:void(0);">古道人家</a></li>
-            <li><a href="javascript:void(0);">人家</a></li>
+            <li><a href="javascript:void(0);">人家</a></li> -->
         </ul>
     </div>
     <div class='header-right'>
@@ -88,8 +88,8 @@
             },
             success: function (data) {
                 if (data.code == 1) {
-                    $.cookie('real-home-token',data.data.token);
-                    $("#top").load("head.html");
+                    $.cookie('real-home-token', data.data.token);
+                    $(".imghead").attr("isClick",'true');
                     $("#bgsub").hide();
                 } else {
                     alert(data.message);
@@ -101,9 +101,9 @@
         });
     });
     //退出事件
-    $(".loginOut").click(function() {
-        $.cookie('real-home-token','');
-        $("#top").load("head.html");
+    $(".loginOut").click(function () {
+        $.cookie('real-home-token', '');
+        $(".imghead").attr("isClick",'false');
         alert('退出成功');
     });
 </script>

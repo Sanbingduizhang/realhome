@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    #mid .content .con-right .con-right-edit {
+    background-color: #F0F1F2;
+    width: 100%;
+    height: 238px;;
+    margin-top: 10px;
+    border-radius: 20px;
+    opacity: 0.8;
+}
+
+#mid .content .con-right .con-right-edit .inputmind {
+    margin-top: 10px;
+    width: 260px;
+    height: 150px;
+    border-radius: 5px;
+}
+#mid .content .con-right .con-right-edit .catexiala .xiala{
+    float: left;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+    line-height: 40px;
+}
+#mid .content .con-right .con-right-edit .catexiala .xiala span {
+    font-size: 14px;
+}
+#selectAge {
+    width: 80px;
+    height: 25px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+#mid .content .con-right .con-right-edit .catexiala div:last-child {
+    float: right;
+}
+#mid .content .con-right .con-right-edit .pubtext {
+    width: 70px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    background-color: #ED7D31;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+#mid .content .con-right .con-right-edit .pubtext:hover {
+    background-color: #F9CC9D;
+}
+    
+    
+    </style>
+</head>
+<body>
+        <div class="con-right-edit">
+                <p>
+                    <textarea class="inputmind" style="resize:none;" placeholder="最多可输入100字"></textarea>
+                </p>
+                <div class="catexiala">
+                    <div class="xiala">
+                        <span>所属分类&nbsp;&nbsp;</span>
+                        <select name="selectAge" id="selectAge">
+                            <!-- <option value="1">18-21</option>
+                            <option value="2">22-25</option>
+                            <option value="3">26-29</option>
+                            <option value="4">30-35</option>
+                            <option value="5">Over35</option> -->
+                        </select>
+                    </div>
+                    <div class="pubtext">发表</div>
+                </div>
+            </div>
+</body>
+</html>
+<script src="">
+/////////
+//用户发表文章
+$(".pubtext").click(function () {
+    var token = getRealToken();
+    if (token == '' || token == 'undefined') {
+        alert('您需要登录后才可以使用');
+        return false;
+    }
+    //判断输入的相关值
+    var inputs = $(".inputmind").val();
+    if (inputs.length == 0) {
+        alert('您暂未输入相关内容');
+        return false;
+    }
+    if (inputs.length > 200) {
+        alert('请您输入200字以内的内容');
+    }
+    //判断是否选中分类
+    var selected = $("#selectAge").find("option:selected").val();
+    //发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/pub-text",
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+        data: {
+            cate: selected,
+            text: inputs,
+            wordscount: inputs.length,
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.code != 1) {
+                alert(response.message);
+                return false;
+            }
+            alert("发布成功,作品审核中...");
+            
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    console.log(inputs);
+});
+
+</script>
