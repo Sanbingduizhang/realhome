@@ -1,5 +1,9 @@
-//首页head头部的标签显示
+//点击单个显示详情内容的
+$(".button-close-det").click(function () {
+    $("#bgdet").hide();
+});
 
+//首页head头部的标签显示
 function headeCate() {
     $.ajax({
         type: "GET",
@@ -167,6 +171,7 @@ function myContent() {
             Authorization: 'Bearer ' + token,
         },
         success: function (data) {
+            console.log(data);
             if (data.code != 1) {
                 $(".con-right-myself").html('');
             }

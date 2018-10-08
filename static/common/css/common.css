@@ -316,3 +316,145 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+/* 首页显示每一个的细节相关 */
+#bgdet {
+    width: 100%;
+    height: 100%;
+    background-color: #E0D9D3;
+    opacity: 0.95;
+    z-index: 999;
+    left: 0%;
+    top: 0%;
+    position: fixed;
+    display: none;
+}
+
+#bgdet .det-index {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+    left: 10%;
+    top: 10%;
+    border-radius: 50px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+#bgdet .button-close-det {
+    float: right;
+    width: 45px;
+    height: 45px;
+    background-color: rgb(190, 143, 143);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px #888888;
+}
+
+/* 首页显示细节头部 */
+#bgdet .det-index .det-head {
+    width: 80%;
+    text-align: center;
+    margin: 10px auto 0px;
+    font-size: 16px;
+    color: midnightblue;
+}
+
+/* 首页显示细节的主要部分 */
+#bgdet .det-index .det-mid {
+    width: 95%;
+    height: 90%;
+    /* background-color: bisque; */
+    margin: 10px auto;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+/* 首页显示细节主要部分的左边 */
+#bgdet .det-index .det-mid .det-mid-left {
+    float: left;
+    width: 65%;
+    height: 97%;
+    /* background-color: rgb(43, 109, 22); */
+    margin: 10px 5px;
+    border-radius: 5px;
+}
+
+
+
+#bgdet .det-index .det-mid .det-mid-left .det-mid-text {
+    /* background-color: azure; */
+    width: 600px;
+    height: 250px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 28px;
+}
+
+#bgdet .det-index .det-mid .det-mid-left .det-mid-comment {
+    margin-top: 50px;
+    /* background-color: yellowgreen; */
+}
+
+#bgdet .det-index .det-mid .det-mid-left .det-mid-comment #text-comments {
+    width: 600px;
+    height: 95px;
+    border-radius: 10px;
+    margin-left: 10px;
+    resize: none;
+}
+
+#bgdet .det-index .det-mid .det-mid-left .det-mid-comment .goComment {
+    float: right;
+    margin-right: 30px;
+    border-radius: 20px;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+#bgdet .det-index .det-mid .det-mid-left .det-mid-comment .goComment:hover {
+    background-color: #ED7D31;
+}
+
+/* 首页显示细节主要部分的右边 */
+#bgdet .det-index .det-mid .det-mid-right {
+    float: right;
+    width: 30%;
+    height: 97%;
+    background-color: whitesmoke;
+    margin: 10px 5px;
+    border-radius: 7px;
+    box-shadow: 1px 1px 1px rgb(131, 126, 126);
+    overflow: auto;
+}
+/* #bgdet .det-index .det-mid .det-mid-right{
+    width: 200px;
+    height: 30px;
+    background-color: #ED7D31;
+    
+} */
+#bgdet .det-index .det-mid .det-mid-right .det-mid-right-comments  {
+    width: 280px;
+    /* height: 30px; */
+    margin: 10px 5px;
+    background-color: #ED7D31;
+    border-radius: 5px;
+    padding: 2px 2px;
+}
+#bgdet .det-index .det-mid .det-mid-right .det-mid-right-comments .comment-comment {
+    margin-left: 10px;
+}
+#bgdet .det-index .det-mid .det-mid-right .det-mid-right-comments .comment-replys {
+    margin-left: 20px;
+}
+#bgdet .det-index .det-mid .det-mid-right .det-mid-right-comments .comment-replys .comment-reply-text {
+    margin-left: 24px;
+}
