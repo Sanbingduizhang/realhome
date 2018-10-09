@@ -19,6 +19,7 @@ function headeCate() {
     });
 }
 headeCate();
+
 //下拉框选择
 $.ajax({
     type: "GET",
@@ -51,7 +52,6 @@ $.ajax({
         $(".con-left-cons").html(str);
         var yema = data.data.pagination;
         $('.index-box').pagination({
-            // totalData: yema.total,
             pageCount: yema.total_page,
             showData: yema.per_page,
             current: yema.current_page,
@@ -68,7 +68,6 @@ $.ajax({
                     error: function (jqXHR) {
                         console.log(jqXHR);
                     }
-
                 });
             },
         });
@@ -91,10 +90,8 @@ $.ajax({
         var yema = data.data.pagination;
         $('.new-box').pagination({
             pageCount: yema.total_page,
-            // totalData: yema.total,
             showData: yema.per_page,
             current: yema.current_page,
-            // coping: true,
             mode: 'fixed',
             callback: function (api) {
                 $.ajax({
@@ -108,7 +105,6 @@ $.ajax({
                     error: function (jqXHR) {
                         console.log(jqXHR);
                     }
-
                 });
             },
         });
@@ -147,7 +143,6 @@ $.ajax({
                     error: function (jqXHR) {
                         console.log(jqXHR);
                     }
-
                 });
             },
         });
@@ -160,7 +155,7 @@ $.ajax({
 //首页个人作品
 function myContent() {
     var token = getRealToken();
-    if (token == '' || token == 'undefined') {
+    if (token == '' || token == undefined || token == 'null') {
         return false;
     }
     $.ajax({
@@ -171,7 +166,6 @@ function myContent() {
             Authorization: 'Bearer ' + token,
         },
         success: function (data) {
-            console.log(data);
             if (data.code != 1) {
                 $(".con-right-myself").html('');
             }
@@ -180,10 +174,8 @@ function myContent() {
             var yema = data.data.pagination;
             $('.my-box').pagination({
                 pageCount: yema.total_page,
-                // totalData: yema.total,
                 showData: yema.per_page,
                 current: yema.current_page,
-                // coping: true,
                 mode: 'fixed',
                 callback: function (api) {
                     $.ajax({
@@ -200,7 +192,6 @@ function myContent() {
                         error: function (jqXHR) {
                             console.log(jqXHR);
                         }
-    
                     });
                 },
             });

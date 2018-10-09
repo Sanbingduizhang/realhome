@@ -11,14 +11,14 @@
     </div>
     <div class='header-right'>
         <div class="imghead" isClick="false">
-            <img src="static/common/img/userhead.jpg" class="headimg">
+            <img src="/static/common/img/userhead.jpg" class="headimg">
         </div>
         <div class='head-img' title='头像名称'>
             <div class="head-mess head-mess-some">
                 <ul>
-                    <li><a href="/home/ziliao.html" target="_blank">基本资料</a></li>
-                    <li><a href="/home/article.html" target="_blank">文章信息</a></li>
-                    <li><a href="/home/photo.html" target="_blank">相册信息</a></li>
+                    <li><a href="javascript:void(0);" class="ziliao">基本资料</a></li>
+                    <li><a href="javascript:void(0);" class="articlemess">文章信息</a></li>
+                    <li><a href="javascript:void(0);" class="photosmess">相册信息</a></li>
                     <li><a href="javascript:void(0);" class="loginOut">退出</a></li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@
 <script>
     //头像下方显示内容的转换
     var realToken = getRealToken();
-    if (realToken == undefined || realToken == '') {
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
         $(".imghead").attr("isClick", "false");
     } else {
         $(".imghead").attr("isClick", "true");
@@ -88,8 +88,8 @@
             },
             success: function (data) {
                 if (data.code == 1) {
-                    $.cookie('real-home-token', data.data.token);
-                    $(".imghead").attr("isClick",'true');
+                    localStorage.setItem('real-home-token', data.data.token);
+                    $(".imghead").attr("isClick", 'true');
                     $("#bgsub").hide();
                     myContent();
                 } else {
@@ -103,9 +103,21 @@
     });
     //退出事件
     $(".loginOut").click(function () {
-        $.cookie('real-home-token', '');
-        $(".imghead").attr("isClick",'false');
-        $(".con-right-my").html('<div class="con-right-all"><div class="my-some-title">我的作品>>></div><div class="con-right-nr con-right-myself"><img src="/static/common/img/timg.gif" alt="" style="width:200px; height:200px;"><p class="submit"><span>请登录。。。</span></p></div><div class="M-box1 m-style m-style-right my-box"></div></div>');
+        localStorage.removeItem('real-home-token');
+        $(".imghead").attr("isClick", 'false');
+        $(".con-right-my").html(
+            '<div class="con-right-all"><div class="my-some-title">我的作品>>></div><div class="con-right-nr con-right-myself"><img src="/static/common/img/timg.gif" alt="" style="width:200px; height:200px;"><p class="submit"><span>请登录。。。</span></p></div><div class="M-box1 m-style m-style-right my-box"></div></div>'
+        );
         alert('退出成功');
+    });
+    //个人中心相关的参数调用
+    $(".ziliao").click(function () {
+        window.open("/home/all.html?ym=zl");
+    });
+    $(".articlemess").click(function () {
+        window.open("/home/all.html?ym=am");
+    });
+    $(".photosmess").click(function () {
+        window.open("/home/all.html?ym=pm");
     });
 </script>

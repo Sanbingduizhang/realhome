@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+#abox {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    width: 1140px;
+    margin: 0 auto;
+    height: 1000px;;
+    /* background-color: rgb(231, 215, 250); */
+}
+#abox .atop .header{
+    height: 65px;
+}
+#abox .amid {
+    width: 100%;
+    height: 800px;
+    /* background-color: coral; */
+}
+#abox .atop .header .header-left {
+    display: none;
+}
+#abox .atop .header .header-right .head-mess-some{
+    /* display: block; */
+    height: 32px;
+}
+#abox .atop .header .header-right .ziliao,.articlemess,.photosmess {
+    display: none;
+}
+#abox .atop .header .header-right .articlemess {
+    display: none;
+}
+#abox .atop .header .header-right .photosmess {
+    display: none;
+}
+
+/* 基础的模型css */
+#abox .amid .amid-left {
+    float: left;
+    height: 760px;
+    width: 220px;
+    background-color: beige;
+    box-shadow: 5px 5px 5px #503636;
+    margin: 10px 5px 10px 10px;
+}
+#abox .amid .amid-right {
+    float: right;
+    height: 760px;
+    width: 895px;
+    background-color: rgba(220, 195, 178, 0.18);
+    box-shadow: 5px 5px 5px #9e7b7b;
+    margin: 10px 10px 10px 0px;
+}
