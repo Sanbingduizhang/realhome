@@ -16,9 +16,9 @@
         <div class='head-img' title='头像名称'>
             <div class="head-mess head-mess-some">
                 <ul>
-                    <li><a href="javascript:void(0);" class="ziliao">基本资料</a></li>
-                    <li><a href="javascript:void(0);" class="articlemess">文章信息</a></li>
-                    <li><a href="javascript:void(0);" class="photosmess">相册信息</a></li>
+                    <li><a href="javascript:void(0);" class="selfcenter">个人中心</a></li>
+                    <!-- <li><a href="javascript:void(0);" class="articlemess">文章信息</a></li>
+                    <li><a href="javascript:void(0);" class="photosmess">相册信息</a></li> -->
                     <li><a href="javascript:void(0);" class="loginOut">退出</a></li>
                 </ul>
             </div>
@@ -88,7 +88,7 @@
             },
             success: function (data) {
                 if (data.code == 1) {
-                    localStorage.setItem('real-home-token', data.data.token);
+                    $.cookie('real-home-token', data.data.token,{path:'/'});
                     $(".imghead").attr("isClick", 'true');
                     $("#bgsub").hide();
                     myContent();
@@ -103,7 +103,7 @@
     });
     //退出事件
     $(".loginOut").click(function () {
-        localStorage.removeItem('real-home-token');
+        $.cookie('real-home-token', '',{path:'/'});
         $(".imghead").attr("isClick", 'false');
         $(".con-right-my").html(
             '<div class="con-right-all"><div class="my-some-title">我的作品>>></div><div class="con-right-nr con-right-myself"><img src="/static/common/img/timg.gif" alt="" style="width:200px; height:200px;"><p class="submit"><span>请登录。。。</span></p></div><div class="M-box1 m-style m-style-right my-box"></div></div>'
@@ -111,13 +111,7 @@
         alert('退出成功');
     });
     //个人中心相关的参数调用
-    $(".ziliao").click(function () {
-        window.open("/home/all.html?ym=zl");
-    });
-    $(".articlemess").click(function () {
-        window.open("/home/all.html?ym=am");
-    });
-    $(".photosmess").click(function () {
-        window.open("/home/all.html?ym=pm");
+    $(".selfcenter").click(function () {
+        window.open("/home/all.html");
     });
 </script>

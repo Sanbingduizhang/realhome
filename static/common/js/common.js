@@ -14,7 +14,7 @@ function getBaseUri() {
 
 //获取拿到的token数据然后写入localStorage
 function getRealToken() {
-    return localStorage.getItem('real-home-token');
+    return $.cookie('real-home-token');
 }
 
 //获取url地址?后某一个参数的方法

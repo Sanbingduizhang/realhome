@@ -30,17 +30,11 @@
     /* display: block; */
     height: 32px;
 }
-#abox .atop .header .header-right .ziliao,.articlemess,.photosmess {
-    display: none;
-}
-#abox .atop .header .header-right .articlemess {
-    display: none;
-}
-#abox .atop .header .header-right .photosmess {
+#abox .atop .header .header-right .selfcenter {
     display: none;
 }
 
-/* 基础的模型css */
+/* 基础的模型左边css */
 #abox .amid .amid-left {
     float: left;
     height: 760px;
@@ -48,7 +42,65 @@
     background-color: beige;
     box-shadow: 5px 5px 5px #503636;
     margin: 10px 5px 10px 10px;
+    border-radius: 5px;
+    font-size: 15px;
 }
+
+#abox .amid .amid-left .amid-left-top {
+    width: 90%;
+    height: 230px;
+    margin: 10px 10px;
+    border-radius: 5px;
+    /* background-color: #9e7b7b; */
+    /* box-shadow: 1px 1px 1px #888888; */
+}
+
+#abox .amid .amid-left .amid-left-top .img-tou{
+    width: 50%;
+    border-radius: 50%;
+}
+
+#abox .amid .amid-left .amid-left-top .left-top-mess {
+    margin-top: 10px;
+    line-height: 26px;
+}
+#abox .amid .amid-left .amid-left-content {
+    width: 90%;
+    height: 480px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    /* background-color: #6d3737; */
+    box-shadow: 1px 1px 1px #888888;
+}
+#abox .amid .amid-left .amid-left-content .amid-left-titles {
+    width: 100px;
+    height: 30px;
+    /* background-color: burlywood; */
+    line-height: 30px;
+    margin: 0 auto;
+}
+#abox .amid .amid-left .amid-left-content .amid-left-lis {
+    /* background-color: aqua; */
+    width: 80%;
+    height: 400px;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+#abox .amid .amid-left .amid-left-content .amid-left-lis p{
+    height: 30px;
+    background-color: beige;
+    cursor: pointer;
+    margin-top: 10px;
+    line-height: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #888888;
+    /* font-size: 15px; */
+}
+#abox .amid .amid-left .amid-left-content .amid-left-lis p:hover {
+    background-color: antiquewhite;
+}
+
+/* 基础的模型右边css */
 #abox .amid .amid-right {
     float: right;
     height: 760px;
@@ -56,4 +108,5 @@
     background-color: rgba(220, 195, 178, 0.18);
     box-shadow: 5px 5px 5px #9e7b7b;
     margin: 10px 10px 10px 0px;
+    border-radius: 5px;
 }
