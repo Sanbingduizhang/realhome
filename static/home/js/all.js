@@ -5,7 +5,7 @@ function ymload() {
         console.log(11);
         $(".amid").html('<div><img src="/static/common/img/timg.gif" alt="" style="width:60%;"><p class="submit"><a href="/index.html">请返回登录登录。。。</a></p></div>');
     } else {
-        $(".amid-right-content").load('/home/tj.html');
+        $(".amid-right-content").load('/home/am.html');
         $(".atop").load('/head.html');
         $(".afoot").load('/foot.html');
     }

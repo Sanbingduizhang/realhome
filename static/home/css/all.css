@@ -12,24 +12,30 @@
     text-align: center;
     width: 1140px;
     margin: 0 auto;
-    height: 1000px;;
+    height: 1000px;
+    ;
     /* background-color: rgb(231, 215, 250); */
 }
-#abox .atop .header{
+
+#abox .atop .header {
     height: 65px;
 }
+
 #abox .amid {
     width: 100%;
     height: 800px;
     /* background-color: coral; */
 }
+
 #abox .atop .header .header-left {
     display: none;
 }
-#abox .atop .header .header-right .head-mess-some{
+
+#abox .atop .header .header-right .head-mess-some {
     /* display: block; */
     height: 32px;
 }
+
 #abox .atop .header .header-right .selfcenter {
     display: none;
 }
@@ -55,7 +61,7 @@
     /* box-shadow: 1px 1px 1px #888888; */
 }
 
-#abox .amid .amid-left .amid-left-top .img-tou{
+#abox .amid .amid-left .amid-left-top .img-tou {
     width: 50%;
     border-radius: 50%;
 }
@@ -64,6 +70,7 @@
     margin-top: 10px;
     line-height: 26px;
 }
+
 #abox .amid .amid-left .amid-left-content {
     width: 90%;
     height: 480px;
@@ -72,6 +79,7 @@
     /* background-color: #6d3737; */
     box-shadow: 1px 1px 1px #888888;
 }
+
 #abox .amid .amid-left .amid-left-content .amid-left-titles {
     width: 100px;
     height: 30px;
@@ -79,6 +87,7 @@
     line-height: 30px;
     margin: 0 auto;
 }
+
 #abox .amid .amid-left .amid-left-content .amid-left-lis {
     /* background-color: aqua; */
     width: 80%;
@@ -86,7 +95,8 @@
     margin: 10px auto;
     border-radius: 5px;
 }
-#abox .amid .amid-left .amid-left-content .amid-left-lis p{
+
+#abox .amid .amid-left .amid-left-content .amid-left-lis p {
     height: 30px;
     background-color: beige;
     cursor: pointer;
@@ -96,6 +106,7 @@
     box-shadow: 1px 1px 1px #888888;
     /* font-size: 15px; */
 }
+
 #abox .amid .amid-left .amid-left-content .amid-left-lis p:hover {
     background-color: antiquewhite;
 }
@@ -112,7 +123,7 @@
 }
 
 /* tj.html的样式 */
-#abox .amid .amid-right .tjshouye .tj-top{
+#abox .amid .amid-right .tjshouye .tj-top {
     width: 98%;
     height: 139px;
     margin: 5px auto;
@@ -120,6 +131,7 @@
     /* background-color: #503636; */
     box-shadow: 1px 1px 1px #888888;
 }
+
 #abox .amid .amid-right .tjshouye .tj-top .tj-top-title {
     width: 130px;
     /* height: 100px; */
@@ -128,11 +140,13 @@
     font-weight: 600;
     color: #97b9ae;
 }
+
 #abox .amid .amid-right .tjshouye .tj-top .tj-top-ls {
     /* width: 100px; */
     /* height: 100px; */
     /* background-color: #481153; */
 }
+
 #abox .amid .amid-right .tjshouye .tj-top .tj-top-ls li {
     width: 20%;
     height: 75px;
@@ -146,11 +160,13 @@
     margin-top: 10px;
     box-shadow: 5px 5px 5px #888888;
 }
+
 #abox .amid .amid-right .tjshouye .tj-mid {
     width: 100px;
     height: 200px;
     background-color: #2e5f6e;
 }
+
 #abox .amid .amid-right .tjshouye .tj-foot {
     width: 100px;
     height: 200px;
@@ -158,3 +174,99 @@
 }
 
 /* 个人资料相关的css */
+#abox .amid .amid-right .zlshow .zlcontent,
+.passcontent {
+    font-size: 18px;
+    text-align: left;
+    margin-left: 50px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #888888;
+    margin-top: 15px;
+    width: 90%;
+}
+
+#abox .amid .amid-right .zlshow .passcontent p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+#abox .amid .amid-right .zlshow .zlcontent p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#abox .amid .amid-right .zlshow .changecontent {
+    margin-left: 20px;
+}
+
+#abox .amid .amid-right .zlshow .changesubmit {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    /* border: 1px solid red; */
+    font-size: 14px;
+    background-color: rgb(201, 130, 73);
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#abox .amid .amid-right .zlshow .changeresume {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    /* border: 1px solid blue; */
+    font-size: 14px;
+    background-color: rgb(201, 130, 73);
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#abox .amid .amid-right .zlshow .changesubmit:hover {
+    background-color: azure;
+}
+
+#abox .amid .amid-right .zlshow .changeresume:hover {
+    background-color: azure;
+}
+
+#abox .amid .amid-right .zlshow input {
+    height: 20px;
+    width: 200px;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+/* 文章相关css*/
+#abox .amid .amid-right .ambk {
+    width: 98%;
+    height: 740px;
+    /* background-color: #503636; */
+    margin: 10px auto;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #888888;
+}
+
+/* #abox .amid .amid-right .ambk .amcontents .amtable {
+    text-align: center;
+    width: 98%;
+} */
+#abox .amid .amid-right .ambk .amcontents td,th {
+    border: solid #888888;
+    border-width: 0px 1px 1px 0px;
+    /* padding-left: 10px; */
+    
+}
+
+#abox .amid .amid-right .ambk .amcontents table {
+    border: solid #888888;
+    border-width: 1px 0px 0px 1px;
+    text-align: center;
+    width: 98%;
+}

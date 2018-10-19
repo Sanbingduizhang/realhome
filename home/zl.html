@@ -1,36 +1,97 @@
 <div class="zlshow">
+    <div>个人账户设置</div>
+    <div class="passcontent">
+        <div>修改密码</div>
+        <div class="changecontent">
+            <p>
+                <span>原始密码</span>
+                <input type="text" id="yuanpwd">
+            </p>
+            <p>
+                <span>新的密码</span>
+                <input type="password" id="xinpwd">
+            </p>
+            <p>
+                <span>确认密码</span>
+                <input type="password" id="passpwd">
+            </p>
+            <div>
+                <span class="changesubmit changepwd">确认修改</span>
+                <span class="changeresume resumepwd">重置</span>
+            </div>
+        </div>
+    </div>
     <div class="zlcontent">
-        <p>
-            <span>账号</span>
-            <span>admin</span>
-        </p>
-        <p>
-            <span>名称</span>
-            <input type="text" name="" id="name">
-        </p>
-        <p>
-            <span>性别</span>
-            <input type="text" name="" id="sex">
-        </p>
-        <p>
-            <span>年龄</span>
-            <input type="text" name="" id="age">
-        </p>
-        <p>
-            <span>手机</span>
-            <input type="text" name="" id="iphone">
-        </p>
-        <p>
-            <span>邮箱</span>
-            <input type="text" name="" id="email">
-        </p>
-        <p>
-            <span>生日</span>
-            <input type="text" name="" id="birth">
-        </p>
-        <p>
-            <span>简介</span>
-            <input type="text" name="" id="desc">
-        </p>
+        <div>修改资料</div>
+        <div class="changecontent">
+            <p>
+                <span>账号</span>
+                <span style="margin-left: 15px;" id="zhao">admin</span>
+            </p>
+            <p>
+                <span>名称</span>
+                <input type="text" name="" id="name">
+            </p>
+            <p>
+                <span>性别</span>
+                <input type="text" name="" id="sex">
+            </p>
+            <p>
+                <span>手机</span>
+                <input type="text" name="" id="iphone">
+            </p>
+            <p>
+                <span>邮箱</span>
+                <input type="email" name="" id="email">
+            </p>
+            <p>
+                <span>生日</span>
+                <input type="text" name="" id="birth">
+            </p>
+            <p>
+                <span>简介</span>
+                <textarea name="" id="desc" cols="40" rows="5" style="resize:none;margin-left: 15px;border-radius: 5px;"></textarea>
+            </p>
+            <div>
+                <span class="changesubmit changezl">确认修改</span>
+                <span class="changeresume resumezl">重置</span>
+            </div>
+        </div>
+
     </div>
 </div>
+<script>
+    (function () {
+        //获取基础的数据token-url
+        var tokenzl = getRealToken();
+        var urizl = getBaseUri();
+        //获取个人资料
+        if (tokenzl == undefined || tokenzl == '' || tokenzl == null) {
+            alert("您当前登录出错，请退出重新登陆");
+            return false;
+        }
+        //发送请求--获取个人数据
+        $.ajax({
+            type: "GET",
+            url: urizl + 'api/opera/getuser',
+            dataType: "json",
+            headers: {
+                Authorization: 'Bearer ' + tokenzl,
+            },
+            success: function (response) {
+                if (response.code == 1) {
+                    $("#zhao").text(response.data.usercode);
+                    $("#name").val(response.data.name);
+                    $("#sex").val(response.data.sex);
+                    $("#iphone").val(response.data.iphone);
+                    $("#birth").val(response.data.birthday);
+                    $("#desc").val(response.data.desc);
+                    $("#email").val(response.data.email);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })();
+</script>
