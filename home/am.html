@@ -1,64 +1,141 @@
 <div class="amall">
     <div class="ambk">
         <div class="amhead">
-            所有内容
+            <div class="amhead-top">文章相关</div>
+            <div>
+                <div class="amhead-left">
+                    <span>添加</span>
+                    <span>删除</span>
+                </div>
+                <div class="amhead-mid">
+                    <span>已发布</span>
+                    <span>未发布</span>
+                    <span>已推荐</span>
+                    <span>未推荐</span>
+                    <span>已审核</span>
+                    <span>未审核</span>
+
+                </div>
+                <div class="amhead-right">
+                    <input type="text" name="" id="amss">
+                    <span>搜索</span>
+                </div>
+            </div>
         </div>
         <div class="amcontents">
             <table class="amtable" border="1" cellspacing="0">
                 <thead>
                     <tr>
+                        <th><input type="checkbox" name="" id=""></th>
                         <th>相关内容</th>
                         <th>所属分类</th>
                         <th>是否发布</th>
                         <th>是否推荐</th>
-                        <th>查看权限</th>
                         <th>点赞人数</th>
                         <th>观看人数</th>
                         <th>审核状态</th>
                         <th>相关操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>相关内容</td>
+                <tbody class="tb-contents">
+                    <!--<tr>
+                        <td><input type="checkbox" name="" id=""></td>
                         <td>$相关内容</td>
                         <td>相关内容</td>
                         <td>$相关内容</td>
                         <td>相关内容</td>
                         <td>$相关内容</td>
                         <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                    </tr>
-                    <tr>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                    </tr>
+                        <td>未审</td>
+                        <td><span>上架</span><span>删除</span></td>
+                    </tr> -->
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
-                        <td>$相关内容</td>
-                        <td>相关内容</td>
+                        <td colspan="9">
+                            <div class="M-box1 all-style all-box"></div>
+                        </td>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <div>
-            底部
-        </div>
     </div>
 </div>
+<script>
+    (function () {
+        //table数据填充
+        function tablestr(data) {
+            var str = '';
+            var len = data.data.data.length;
+            if (len == 0) {
+                return '<tr><td colspan="9">暂无数据</div></td></tr>';
+            }
+            var tbs = data.data.data;
+            for (var i = 0; i < len; i++) {
+                str += '<tr>' +
+                    '<td><input type="checkbox" id="check-all-ar" arid="' + tbs[i].id + '"></td>' +
+                    '<td title="' + tbs[i].content + '">' + tbs[i].content.substring(0, 18) + '...</td>' +
+                    '<td>' + tbs[i].article_cate + '</td>' +
+                    '<td>' + tbs[i].publish + '</td>' +
+                    '<td>' + tbs[i].is_rec + '</td>' +
+                    '<td>' + tbs[i].like + '</td>' +
+                    '<td>' + tbs[i].pv + '</td>' +
+                    '<td>' + tbs[i].status + '</td>' +
+                    '<td><span>' + tbs[i].sxj + '</span><span>删除</span></td>' +
+                    '</tr>';
+            }
+            return str;
+        }
+
+        var realToken = getRealToken();
+        if (realToken == undefined || realToken == '' || realToken == null) {
+            console.log(realToken);
+        } else {
+            $.ajax({
+                type: "GET",
+                url: getBaseUri() + "api/admin/index",
+                dataType: "json",
+                data: {
+
+                },
+                headers: {
+                    Authorization: 'Bearer ' + realToken,
+                },
+                success: function (response) {
+                    var tbstr = tablestr(response);
+                    $(".tb-contents").html(tbstr);
+                    var yema = response.data.pagination;
+                    $('.all-box').pagination({
+                        pageCount: yema.total_page,
+                        showData: yema.per_page,
+                        current: yema.current_page,
+                        coping: true,
+                        callback: function (api) {
+                            $.ajax({
+                                type: "GET",
+                                url: getBaseUri() + "api/admin/index?page=" + api.getCurrent(),
+                                dataType: "json",
+                                headers: {
+                                    Authorization: 'Bearer ' + realToken,
+                                },
+                                data: {
+
+                                },
+                                success: function (data) {
+                                    var tbstr = tablestr(data);
+                                    $(".tb-contents").html(tbstr);
+                                },
+                                error: function (jqXHR) {
+                                    console.log(jqXHR);
+                                }
+                            });
+                        },
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })();
+</script>

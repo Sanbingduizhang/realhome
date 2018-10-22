@@ -253,20 +253,194 @@
     box-shadow: 1px 1px 1px #888888;
 }
 
-/* #abox .amid .amid-right .ambk .amcontents .amtable {
+#abox .amid .amid-right .ambk .amhead {
+    /* background-color: #2e5f6e; */
+    margin-bottom: 10px;
+    height: 65px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-top {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-left {
+    float: left;
+    margin-left: 20px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-left span {
+    margin-left: 5px;
+    display: inline-block;
+    width: 65px;
+    height: 25px;
+    background-color: #2196F3;
+    color: #fff;
+    font-size: 14px;
+    line-height: 25px;
     text-align: center;
-    width: 98%;
-} */
-#abox .amid .amid-right .ambk .amcontents td,th {
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-left span:last-child {
+    background-color: #F57C00;
+}
+#abox .amid .amid-right .ambk .amhead .amhead-mid {
+    float: left;
+    margin-left: 25px;
+}
+#abox .amid .amid-right .ambk .amhead .amhead-mid span {
+    margin-left: 5px;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    background-color: #2196F3;
+    color: #fff;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-right {
+    float: right;
+    margin-right: 15px;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-right input {
+    width: 180px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid #D4D7DE;
+}
+
+#abox .amid .amid-right .ambk .amhead .amhead-right span {
+    display: inline-block;
+    width: 65px;
+    height: 25px;
+    background-color: #2196F3;
+    color: #fff;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+#abox .amid .amid-right .ambk .amcontents td,
+th {
     border: solid #888888;
     border-width: 0px 1px 1px 0px;
     /* padding-left: 10px; */
-    
+    height: 35px;
+    line-height: 35px;
 }
+
+#abox .amid .amid-right .ambk .amcontents th:first-child {
+    width: 20px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(3) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(4) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(5) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(6) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(7) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:nth-child(8) {
+    width: 70px;
+}
+
+#abox .amid .amid-right .ambk .amcontents th:last-child {
+    width: 110px;
+}
+
+#abox .amid .amid-right .ambk .amcontents td {
+    font-size: 14px;
+
+}
+
+#abox .amid .amid-right .ambk .amcontents td span {
+    display: inline-block;
+    width: 46px;
+    height: 22px;
+    /* margin-left: 10px; */
+    line-height: 22px;
+    font-size: 13px;
+    text-align: center;
+    background-color: #2196F3;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+
+}
+
+#abox .amid .amid-right .ambk .amcontents td span:last-child {
+    margin-left: 10px;
+    background-color: #F57C00;
+}
+
+#abox .amid .amid-right .ambk .amcontents tfoot {}
 
 #abox .amid .amid-right .ambk .amcontents table {
     border: solid #888888;
     border-width: 1px 0px 0px 1px;
     text-align: center;
-    width: 98%;
+    width: 865px;
+}
+
+/* 分页的样式--重写 */
+#abox .amid .amid-right .ambk .amcontents tfoot td .all-style a:hover {
+    background: #F57C00;
+}
+
+#abox .amid .amid-right .ambk .amcontents tfoot td .all-style {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 13px;
+    float: right;
+}
+
+#abox .amid .amid-right .ambk .amcontents tfoot td .all-style a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 6px;
+    border: 1px solid rgb(129, 123, 123);
+    color: rgb(129, 123, 123);
+    margin-left: 10px;
+}
+
+#abox .amid .amid-right .ambk .amcontents tfoot td .all-style span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 6px;
+    border: 1px solid rgb(129, 123, 123);
+    color: rgb(129, 123, 123);
+    margin-left: 10px;
+    background-color: #F9F4F1;
+}
+
+#abox .amid .amid-right .ambk .amcontents tfoot td .all-style .active {
+    background-color: #2196F3;
 }
