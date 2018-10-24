@@ -1,12 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .zlshow {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            width: 1140px;
+            margin: 0 auto;
+            height: 980px;
+            background-color: antiquewhite;
+            text-align: left;
+            font-size: 18px;
+        }
+        .zlshow .zlcontent .changecontent {
+            margin-left: 30px;
+            font-size: 18px;
+        }
+        .zlshow .zlcontent .changecontent p {
+            margin-top: 20px;
+        }
+        .zlshow .zlcontent .changecontent p .hxing{
+            color: red;
+            margin-left: 10px;
+        }
+        .zlshow .zlcontent .changecontent p .hmid{
+            color: rgb(172, 41, 41);
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
-    这是注册页面
+    <div class="zlshow">
+        
+        <div class="zlcontent">
+            <div class="rgtitle">注册用户</div>
+            <div class="changecontent">
+                <p>
+                    <span>账号</span>
+                    <input type="text" id="zhao">
+                    <span class="hxing">*</span>
+                    <span class="hmid">字母组成-例如:user</span>
+                </p>
+                <p>
+                    <span>名称</span>
+                    <input type="text" name="" id="name">
+                    <span class="hxing">*</span>
+                    <span class="hmid">汉字组成-例如:用户</span>
+                </p>
+                <p>
+                    <span>性别</span>
+                    <span>
+                        <select name="" id="sex">
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                            <option value="3">未知</option>
+                        </select>
+                    </span>
+                </p>
+                <p>
+                    <span>手机</span>
+                    <input type="text" name="" id="iphone">
+                </p>
+                <p>
+                    <span>邮箱</span>
+                    <input type="email" name="" id="email">
+                    <span class="hxing">*</span>
+                    <span class="hmid">用来验证</span>
+                </p>
+                <p>
+                    <span>生日</span>
+                    <input type="text" name="" id="birth">
+                </p>
+                <p>
+                    <span>简介</span>
+                    <textarea name="" id="desc" cols="40" rows="5" style="resize:none;margin-left: 15px;border-radius: 5px;"></textarea>
+                </p>
+                <p>
+                    <span>验证码</span>
+                    <input type="text" id="yzm">
+                </p>
+                <div>
+                    <span class="submityh">注册用户</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
 </body>
+
 </html>
+<script src="/static/jquery-1.12.4.js"></script>
+<script src="/static/jquery.cookie.js"></script>
+<script src="/static/common/js/common.js"></script>
+<script>
+        (function () {
+            //获取基础的数据token-url
+            // var tokenzl = getRealToken();
+            var urizl = getBaseUri();
+            //获取个人资料
+            // if (tokenzl == undefined || tokenzl == '' || tokenzl == null) {
+            //     alert("您当前登录出错，请退出重新登陆");
+            //     return false;
+            // }
+            //发送请求--获取个人数据
+            // $.ajax({
+            //     type: "GET",
+            //     url: urizl + '',
+            //     dataType: "json",
+            //     headers: {
+            //         Authorization: 'Bearer ' + tokenzl,
+            //     },
+            //     success: function (response) {
+            //         i
+            //     },
+            //     error: function (error) {
+            //         console.log(error);
+            //     }
+            // });
+        })();
+    </script>

@@ -28,3 +28,30 @@ function GetQueryString(name) {
     r = null;
     return context == null || context == "" || context == "undefined" ? "" : context;
 }
+
+function getDate() {
+    //获取当前时间
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+        month = "0" + month;
+    }
+    if (day < 10) {
+        day = "0" + day;
+    }
+    return year + "-" + month + "-" + day;
+}
+//比较时间算出年龄
+function compareDate(oldArr) {
+    var newArr = getDate().split("-");
+    var chuanArr = oldArr.split("-");
+    var newy = newArr[0] - chuanArr[0];
+    var newm = newArr[1] - chuanArr[1];
+    var newd = newArr[2] - chuanArr[2];
+    if (newm < 0 || (newm == 0 && newd < 0)) {
+        newy = newy - 1;
+    }
+    return newy;
+}

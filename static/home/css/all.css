@@ -64,11 +64,14 @@
 #abox .amid .amid-left .amid-left-top .img-tou {
     width: 50%;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 #abox .amid .amid-left .amid-left-top .left-top-mess {
     margin-top: 10px;
     line-height: 26px;
+    text-align: left;
+    margin-left: 45px;
 }
 
 #abox .amid .amid-left .amid-left-content {
@@ -109,6 +112,17 @@
 
 #abox .amid .amid-left .amid-left-content .amid-left-lis p:hover {
     background-color: antiquewhite;
+}
+
+#abox .amid .amid-left .amid-left-content .outshou {
+    height: 30px;
+    background-color: #6f6f40;
+    cursor: pointer;
+    color: aliceblue;
+    line-height: 30px;
+    border-radius: 10px;
+    margin: 10px 10px;
+    box-shadow: 1px 1px 1px #888888;
 }
 
 /* 基础的模型右边css */
@@ -286,10 +300,12 @@
 #abox .amid .amid-right .ambk .amhead .amhead-left span:last-child {
     background-color: #F57C00;
 }
+
 #abox .amid .amid-right .ambk .amhead .amhead-mid {
     float: left;
     margin-left: 25px;
 }
+
 #abox .amid .amid-right .ambk .amhead .amhead-mid span {
     margin-left: 5px;
     display: inline-block;
