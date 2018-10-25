@@ -42,12 +42,19 @@
             margin-left: 10px;
             font-size: 14px;
         }
+        .zlshow .zlcontent .changecontent p input {
+            width: 190px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 13px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
     <div class="zlshow">
-        
+
         <div class="zlcontent">
             <div class="rgtitle">注册用户</div>
             <div class="changecontent">
@@ -58,12 +65,18 @@
                     <span class="hmid">字母组成-例如:user</span>
                 </p>
                 <p>
+                    <span>密码</span>
+                    <input type="password" id="pwd">
+                    <span class="hxing">*</span>
+                    <span class="hmid">5-16位字母、数字、符号组成组成</span>
+                </p>
+                <p>
                     <span>名称</span>
                     <input type="text" name="" id="name">
                     <span class="hxing">*</span>
                     <span class="hmid">汉字组成-例如:用户</span>
                 </p>
-                <p>
+                <!-- <p>
                     <span>性别</span>
                     <span>
                         <select name="" id="sex">
@@ -94,7 +107,7 @@
                 <p>
                     <span>验证码</span>
                     <input type="text" id="yzm">
-                </p>
+                </p> -->
                 <div>
                     <span class="submityh">注册用户</span>
                 </div>
@@ -102,7 +115,7 @@
 
         </div>
     </div>
-    
+
 </body>
 
 </html>
@@ -110,29 +123,29 @@
 <script src="/static/jquery.cookie.js"></script>
 <script src="/static/common/js/common.js"></script>
 <script>
-        (function () {
-            //获取基础的数据token-url
-            // var tokenzl = getRealToken();
-            var urizl = getBaseUri();
-            //获取个人资料
-            // if (tokenzl == undefined || tokenzl == '' || tokenzl == null) {
-            //     alert("您当前登录出错，请退出重新登陆");
-            //     return false;
-            // }
-            //发送请求--获取个人数据
-            // $.ajax({
-            //     type: "GET",
-            //     url: urizl + '',
-            //     dataType: "json",
-            //     headers: {
-            //         Authorization: 'Bearer ' + tokenzl,
-            //     },
-            //     success: function (response) {
-            //         i
-            //     },
-            //     error: function (error) {
-            //         console.log(error);
-            //     }
-            // });
-        })();
-    </script>
+    (function () {
+        //获取基础的数据token-url
+        // var tokenzl = getRealToken();
+        var urizl = getBaseUri();
+        //获取个人资料
+        // if (tokenzl == undefined || tokenzl == '' || tokenzl == null) {
+        //     alert("您当前登录出错，请退出重新登陆");
+        //     return false;
+        // }
+        //发送请求--获取个人数据
+        // $.ajax({
+        //     type: "GET",
+        //     url: urizl + '',
+        //     dataType: "json",
+        //     headers: {
+        //         Authorization: 'Bearer ' + tokenzl,
+        //     },
+        //     success: function (response) {
+        //         i
+        //     },
+        //     error: function (error) {
+        //         console.log(error);
+        //     }
+        // });
+    })();
+</script>

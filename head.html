@@ -55,7 +55,32 @@
     //注册和登录相关的事件以及跳转
     //注册
     $(".register").click(function () {
-        window.open('regsub.html');
+        $(".sub-index").html('<div class="button-close">关闭</div>' +
+            '<div class="sub-head">遇 见 过 往</div>' +
+            '<div class="sub-mid">' +
+            '<p>' +
+            '<span>账号</span>' +
+            '<span style="margin-left:5px;">' +
+            '<input type="text" name="" id="zcusername" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '<p>' +
+            '<span>密码</span>' +
+            '<span style="margin-left:5px;">' +
+            '<input type="password" name="" id="zcpassword" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '<p>' +
+            '<span>昵称</span>' +
+            '<span style="margin-left:5px;">' +
+            '<input type="text" name="" id="zcmc" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '</div>' +
+            '<div class="sub-bottom">' +
+            '<p class="zhucego submitgo">立即注册</p>' +
+            '</div>');
+        $("#bgsub").show();
     });
     $(".submit").click(function () {
         $("#bgsub").show();
@@ -103,6 +128,60 @@
             }
         });
     });
+    //注册事件.sub-index
+    $(".sub-index").on('click','.zhucego',function () {
+        var user = $("#zcusername").val();
+        var pwd = $("#zcpassword").val();
+        var mc = $("#zcmc").val();
+        // 账号的正则验证
+        var reguser = "^[a-zA-Z]{5,16}$";
+        var reuser = new RegExp(reguser);
+        if (!reuser.test(user)) {
+            alert('账号由5-16位字母组成');
+        }
+        //密码的正则验证
+        var regepwd =
+            "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
+        var repwd = new RegExp(regepwd);
+        if (!repwd.test(pwd)) {
+            alert("密码由5-16位字母、数字、符号组成");
+        }
+        //账号验证
+        var regemc =
+            "^[\u4E00-\u9FA5\uF900-\uFA2D]{2,12}$";
+        var repmc = new RegExp(regemc);
+        if (!repmc.test(mc)) {
+            alert("昵称由2-12位中文组成");
+        }
+        console.log(user);
+        console.log(pwd);
+        console.log(mc);
+        //发送登录请求
+        $.ajax({
+            type: "POST",
+            url: getBaseUri() + "base/register",
+            dataType: "json",
+            data: {
+                usercode: user,
+                password: pwd,
+                nc:mc,
+            },
+            success: function (data) {
+                if (data.code == 1) {
+                   alert('注册成功，请返回登录');
+                   window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (data) {
+                alert(data.message);
+                console.log(data);
+            }
+        });
+    });
+
+
     //退出事件
     $(".loginOut").click(function () {
         $.cookie('real-home-token', '', {

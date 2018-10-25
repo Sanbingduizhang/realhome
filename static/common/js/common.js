@@ -2,7 +2,7 @@
 $("#top").load("head.html");
 $("#buttom").load("foot.html");
 //背景层登陆点击操作
-$(".button-close").click(function () {
+$(".sub-index").on('click','.button-close',function () {
     $("#bgsub").hide();
 });
 

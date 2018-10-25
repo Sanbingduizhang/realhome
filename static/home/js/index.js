@@ -2,6 +2,36 @@
 $(".button-close-det").click(function () {
     $("#bgdet").hide();
 });
+$(".con-left-cons").on('click','.con-left-con', function () {
+    //获取arid
+    var artcleid = $(this).attr('arid');
+    //获取分类
+    var arcate = $(this).find('.arcate').text();
+    //获取作者昵称
+    var arusername = $(this).find('.arusername').text();
+    //获取点赞数量
+    var arlikes = $(this).find('.arlikes').text();
+    //获取评论数量
+    var arcomments = $(this).find('.arcomments').text();
+    //获取时间
+    var artime = $(this).find('.artime').text();
+
+    //填充头部信息
+    $(".det-head").html('<span>'+arcate+'</span>'+
+    '<span>&nbsp;&nbsp;</span>'+
+    '<span>'+arlikes+'</span>'+
+    '<span>&nbsp;&nbsp;</span>'+
+    '<span>'+arcomments+'</span>'+
+    '<span>&nbsp;&nbsp;</span>'+
+    '<span>作者:'+arusername+'</span>'+
+    '<span>&nbsp;&nbsp;</span>'+
+    '<span>时间:'+artime+'</span>');
+
+    //填充内容信息
+    var arcon = $(this).find('.zhucon').attr('title');
+    $(".det-mid-text").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+arcon);
+    $("#bgdet").show();
+});
 
 //首页head头部的标签显示
 function headeCate() {
@@ -219,19 +249,19 @@ function indexShow(data) {
     var articles = data;
     var len = articles.length;
     for (var i = 0; i < len; i++) {
-        str += '<div class="con-left-con">' +
+        str += '<div class="con-left-con" arid="'+articles[i].id+'">' +
             '<div class="suoshu">' +
-            '<span>' + articles[i].article_user.name + '&nbsp;&nbsp;</span>' +
-            '<span>&nbsp;&nbsp;' + articles[i].created_at + '</span>' +
+            '<span class="arusername">' + articles[i].article_user.name + '&nbsp;&nbsp;</span>' +
+            '<span class="artime">&nbsp;&nbsp;' + articles[i].created_at + '</span>' +
             '</div>' +
             '<div class="zhucon" title="' + articles[i].content + '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
             articles[i].content.substring(0, 100) +
             '...</div>' +
             '<div class="other">' +
-            '<p>分类:' + articles[i].article_cate.name + '</p>' +
+            '<p class="arcate">分类:' + articles[i].article_cate.name + '</p>' +
             '<p>' +
-            '<span>点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
-            '<span>&nbsp;&nbsp;评论(' + articles[i].pv + ')</span>' +
+            '<span class="arlikes">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
+            '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].pv + ')</span>' +
             '</p>' +
             '</div>' +
             '</div>';
