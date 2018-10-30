@@ -1,37 +1,113 @@
 //点击单个显示详情内容的
 $(".button-close-det").click(function () {
+    $(".det-head").html('<img src="/static/common/img/timg.gif" alt="" style="width: 30px;">');
+    $(".det-mid-text").html('<img src="/static/common/img/timg.gif" alt="" style="width: 300px;">');
+    $(".det-mid-right").html('<img src="/static/common/img/timg.gif" alt="" style="width: 260px;">');
     $("#bgdet").hide();
 });
-$(".con-left-cons").on('click','.con-left-con', function () {
+$(".con-left-cons").on('click', '.con-left-con', function () {
     //获取arid
-    var artcleid = $(this).attr('arid');
-    //获取分类
-    var arcate = $(this).find('.arcate').text();
-    //获取作者昵称
-    var arusername = $(this).find('.arusername').text();
-    //获取点赞数量
-    var arlikes = $(this).find('.arlikes').text();
-    //获取评论数量
-    var arcomments = $(this).find('.arcomments').text();
-    //获取时间
-    var artime = $(this).find('.artime').text();
+    var articleid = $(this).attr('arid');
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        realToken = '';
+    }
 
-    //填充头部信息
-    $(".det-head").html('<span>'+arcate+'</span>'+
-    '<span>&nbsp;&nbsp;</span>'+
-    '<span>'+arlikes+'</span>'+
-    '<span>&nbsp;&nbsp;</span>'+
-    '<span>'+arcomments+'</span>'+
-    '<span>&nbsp;&nbsp;</span>'+
-    '<span>作者:'+arusername+'</span>'+
-    '<span>&nbsp;&nbsp;</span>'+
-    '<span>时间:'+artime+'</span>');
+    //文章以及头部显示
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/oneart/" + articleid,
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                return false;
+            }
 
-    //填充内容信息
-    var arcon = $(this).find('.zhucon').attr('title');
-    $(".det-mid-text").html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+arcon);
+            var datas = response.data;
+            //填充头部信息
+            var toustr = '<span>分类:' + datas.arcatename + '</span>' +
+                '<span>&nbsp;&nbsp;</span>' +
+                '<span>点赞(' + datas.like + ')</span>' +
+                '<span>&nbsp;&nbsp;</span>' +
+                '<span>评论(' + datas.pv + ')</span>' +
+                '<span>&nbsp;&nbsp;</span>' +
+                '<span>作者:' + datas.arusername + '</span>' +
+                '<span>&nbsp;&nbsp;</span>' +
+                '<span>更新时间:' + datas.updated_at + '</span>';
+
+            $(".det-head").html(toustr);
+            //填充内容
+            var contentstr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + datas.content;
+            $(".det-mid-text").html(contentstr);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    //评论
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/artcom/" + articleid,
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                return false;
+            }
+            var str = indexComXR(response.data);
+            $(".det-mid-right").html(str);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+    //显示渲染好的页面
     $("#bgdet").show();
 });
+
+//评论的渲染
+function indexComXR(data) {
+    var len = data.data.length;
+    var datas = data.data;
+    var yema = data.pagination;
+    // console.log(yema);
+    var str = '';
+    if (len == 0) {
+        return '<div style="font-size:18px;color:brown;margin:50% 50%">暂无评论</div>';
+    }
+    for (var i = 0; i < len; i++) {
+        str += '<div class="det-mid-right-comments">' +
+            '<div class="comment-author">' +
+            '<span class="author-comment">' + datas[i].com_user + '</span>评论:' +
+            '</div>' +
+            '<div class="comment-comment">' + datas[i].content + '</div>' +
+            '<div class="comment-san">' +
+            '<span class="comsan-like" arlid="' + datas[i].id + '">点赞(' + datas[i].likecount + ')</span>' +
+            '<span class="comsan-reply" arrid="' + datas[i].id + '">回复(' + datas[i].com_reply_count + ')</span>';
+        if (datas[i].is_me == true) {
+            str += '<span class="comsan-del">删除</span>';
+        }
+
+        str += '</div>' +
+            '<div class="comment-replys comment-replyid' + datas[i].id + '">' +
+            '</div>' +
+            '</div>';
+    }
+    // '<div class="comment-reply">' +
+    //     '<div>' +
+    //     '<span>小三</span>回复<span>小茶</span>' +
+    //     '</div>' +
+    //     '<div class="comment-reply-text">第二条评论的回复dasdhjjjhhjkhjkhkasdsadsadsadsadas</div>' +
+    //     '</div>' +
+    return str;
+}
 
 //首页head头部的标签显示
 function headeCate() {
@@ -249,7 +325,7 @@ function indexShow(data) {
     var articles = data;
     var len = articles.length;
     for (var i = 0; i < len; i++) {
-        str += '<div class="con-left-con" arid="'+articles[i].id+'">' +
+        str += '<div class="con-left-con" arid="' + articles[i].id + '">' +
             '<div class="suoshu">' +
             '<span class="arusername">' + articles[i].article_user.name + '&nbsp;&nbsp;</span>' +
             '<span class="artime">&nbsp;&nbsp;' + articles[i].created_at + '</span>' +
