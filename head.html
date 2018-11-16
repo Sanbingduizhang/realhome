@@ -82,11 +82,32 @@
             '</div>');
         $("#bgsub").show();
     });
+    //登录页面展示
     $(".submit").click(function () {
+        $(".sub-index").html('<div class="button-close">关闭</div>' +
+            '<div class="sub-head">遇 见 过 往</div>' +
+            '<div class="sub-mid">' +
+            '<p>' +
+            '<span>账号</span>' +
+            '<span>' +
+            '<input type="text" name="" id="username" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '<p>' +
+            '<span>密码</span>' +
+            '<span>' +
+            '<input type="password" name="" id="password" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '</div>' +
+            '<div class="sub-bottom">' +
+            '<p class="submitgo">立即登录</p>' +
+            '<p class="submitfog">忘记密码</p>' +
+            '</div>');
         $("#bgsub").show();
     });
     //登录事件
-    $(".submitgo").click(function () {
+    $(".sub-index").on('click', '.submitgo', function () {
         var user = $("#username").val();
         var pwd = $("#password").val();
         // 账号的正则验证
@@ -129,7 +150,7 @@
         });
     });
     //注册事件.sub-index
-    $(".sub-index").on('click','.zhucego',function () {
+    $(".sub-index").on('click', '.zhucego', function () {
         var user = $("#zcusername").val();
         var pwd = $("#zcpassword").val();
         var mc = $("#zcmc").val();
@@ -161,12 +182,12 @@
             data: {
                 usercode: user,
                 password: pwd,
-                nc:mc,
+                nc: mc,
             },
             success: function (data) {
                 if (data.code == 1) {
-                   alert('注册成功，请返回登录');
-                   window.location.reload();
+                    alert('注册成功，请返回登录');
+                    window.location.reload();
                 } else {
                     alert(data.message);
                 }
