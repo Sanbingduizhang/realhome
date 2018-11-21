@@ -4,21 +4,21 @@
             <div class="amhead-top">文章相关</div>
             <div>
                 <div class="amhead-left">
-                    <span>添加</span>
-                    <span>删除</span>
+                    <span class="amhead-add">添加</span>
+                    <span  class="amhead-del">删除</span>
                 </div>
                 <div class="amhead-mid">
-                    <span>已发布</span>
-                    <span>未发布</span>
-                    <span>已推荐</span>
-                    <span>未推荐</span>
-                    <span>已审核</span>
-                    <span>未审核</span>
+                    <span  class="amhead-ypu">已发布</span>
+                    <span  class="amhead-npu">未发布</span>
+                    <span  class="amhead-yrec">已推荐</span>
+                    <span  class="amhead-nrec">未推荐</span>
+                    <span  class="amhead-yshen">已审核</span>
+                    <span  class="amhead-nshen">未审核</span>
 
                 </div>
                 <div class="amhead-right">
                     <input type="text" name="" id="amss">
-                    <span>搜索</span>
+                    <span  class="amhead-ss">搜索</span>
                 </div>
             </div>
         </div>
@@ -72,8 +72,8 @@
             }
             var tbs = data.data.data;
             for (var i = 0; i < len; i++) {
-                str += '<tr>' +
-                    '<td><input type="checkbox" id="check-all-ar" arid="' + tbs[i].id + '"></td>' +
+                str += '<tr arid="' + tbs[i].id + '">' +
+                    '<td><input type="checkbox" id="check-all-ar"></td>' +
                     '<td title="' + tbs[i].content + '">' + tbs[i].content.substring(0, 18) + '...</td>' +
                     '<td>' + tbs[i].article_cate + '</td>' +
                     '<td>' + tbs[i].publish + '</td>' +
@@ -81,7 +81,7 @@
                     '<td>' + tbs[i].like + '</td>' +
                     '<td>' + tbs[i].pv + '</td>' +
                     '<td>' + tbs[i].status + '</td>' +
-                    '<td><span>' + tbs[i].sxj + '</span><span>删除</span></td>' +
+                    '<td><span class="sxj">' + tbs[i].sxj + '</span><span class="amdel">删除</span></td>' +
                     '</tr>';
             }
             return str;
@@ -91,12 +91,52 @@
         if (realToken == undefined || realToken == '' || realToken == null) {
             console.log(realToken);
         } else {
+            indexar(realToken);
+        }
+
+        //删除操作--删除单条的逻辑
+        $(".tb-contents").on('click', '.amdel', function () {
+            //获取当前这一条数据的id
+            var arid = $(this).parent().parent().attr('arid');
+            var idarr = new Array(arid);
+            del(idarr);
+        });
+        //删除操作--选择多条删除
+
+
+
+        //删除操作方法
+        function del(idArr) {
+            if (realToken == undefined || realToken == '' || realToken == null) {
+                console.log('用户登录有误');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: getBaseUri() + "api/admin/ar/del",
+                    dataType: "json",
+                    data: {
+                        'idArr': idArr,
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + realToken,
+                    },
+                    success: function (response) {
+                        indexar(realToken);
+                        alert('删除成功');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+        //显示操作方法
+        function indexar(realToken) {
             $.ajax({
                 type: "GET",
                 url: getBaseUri() + "api/admin/index",
                 dataType: "json",
                 data: {
-
                 },
                 headers: {
                     Authorization: 'Bearer ' + realToken,

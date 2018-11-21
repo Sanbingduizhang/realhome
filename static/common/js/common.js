@@ -8,6 +8,7 @@ $(".sub-index").on('click','.button-close',function () {
 
 function getBaseUri() {
     return "http://realadmin.com/";
+    // return "http://192.168.223.128:8082/";
 }
 
 ///////------------方法---------------//1
