@@ -113,7 +113,7 @@ function indexComXR(data) {
 function headeCate() {
     $.ajax({
         type: "GET",
-        url: getBaseUri() + "/api/home/cate",
+        url: getBaseUri() + "api/home/cate",
         dataType: "json",
         success: function (response) {
             if (response.code != 1) {
@@ -127,23 +127,23 @@ function headeCate() {
 headeCate();
 
 //下拉框选择
-$.ajax({
-    type: "GET",
-    url: getBaseUri() + "/api/home/cate",
-    dataType: "json",
-    success: function (response) {
-        if (response.code != 1) {
-            return false;
-        }
-        var str = '';
-        var cates = response.data;
-        var len = cates.length;
-        for (var i = 0; i < len; i++) {
-            str += '<option value="' + cates[i].cateid + '">' + cates[i].catename + '</option>';
-        }
-        $("#selectAge").html(str);
-    }
-});
+// $.ajax({
+//     type: "GET",
+//     url: getBaseUri() + "api/home/cate",
+//     dataType: "json",
+//     success: function (response) {
+//         if (response.code != 1) {
+//             return false;
+//         }
+//         var str = '';
+//         var cates = response.data;
+//         var len = cates.length;
+//         for (var i = 0; i < len; i++) {
+//             str += '<option value="' + cates[i].cateid + '">' + cates[i].catename + '</option>';
+//         }
+//         $("#selectAge").html(str);
+//     }
+// });
 
 //首页左边主要内容显示
 $.ajax({

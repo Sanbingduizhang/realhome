@@ -305,7 +305,9 @@
     float: left;
     margin-left: 25px;
 }
-
+#abox .amid .amid-right .ambk .amhead .amhead-mid p {
+    display: inline-block;
+}
 #abox .amid .amid-right .ambk .amhead .amhead-mid span {
     margin-left: 5px;
     display: inline-block;
@@ -459,4 +461,129 @@ th {
 
 #abox .amid .amid-right .ambk .amcontents tfoot td .all-style .active {
     background-color: #2196F3;
+}
+
+
+/* 添加隐藏部分css */
+#bgaddar {
+    width: 100%;
+    height: 100%;
+    background-color: #E0D9D3;
+    opacity: 0.95;
+    z-index: 999;
+    left: 0%;
+    top: 0%;
+    position: fixed;
+    display: none;
+}
+#bgaddar .addar-index {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+    left: 10%;
+    top: 10%;
+    border-radius: 50px;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+#bgaddar .button-close-addar {
+    float: right;
+    width: 45px;
+    height: 45px;
+    background-color: rgb(190, 143, 143);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px #888888;
+}
+/* 添加隐藏部分头部 */
+#bgaddar .addar-index .addar-head {
+    width: 80%;
+    text-align: center;
+    margin: 10px auto 0px;
+    font-size: 16px;
+    color: midnightblue;
+}
+
+/* 添加隐藏部分的主要部分 */
+#bgaddar .addar-index .addar-mid {
+    width: 65%;
+    height: 90%;
+    margin: 10px auto;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+#bgaddar .addar-index .addar-mid .addar-mid-content {
+    text-align: left;
+    margin-left: 36px;
+    margin-top: 10px;
+}
+
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mid-top {
+    margin-bottom: 20px;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changet {
+    float: left; 
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changeselt {
+    margin-left: 90px;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changeselt .addar-mt-changesel {
+    border-radius: 10px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changepubs {
+    margin-bottom: 20px;
+}
+
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changepubs .addar-mt-changepub {
+    float: left;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changepubs .addar-mt-changepubsel{
+    margin-left: 90px;
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changepubs .addar-mt-changepubsel span {
+    margin-right: 10px;
+}
+#bgaddar .addar-index .addar-mid .addar-mid-content .addar-mt-changepubs .addar-mt-changepubsel span #changepub {
+    margin-left: 5px;
+}
+
+
+
+#bgaddar .addar-index .addar-mid  .addar-mid-comment {
+    margin-top: 250px;
+    /* background-color: yellowgreen; */
+}
+
+#bgaddar .addar-index .addar-mid  .addar-mid-comment #addar-text-comments {
+    width: 575px;
+    height: 170px;
+    border-radius: 10px;
+    margin-left: 10px;
+    resize: none;
+}
+
+#bgaddar .addar-index .addar-mid  .addar-mid-comment .addar-goComment {
+    float: right;
+    margin-right: 30px;
+    border-radius: 20px;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+#bgaddar .addar-index .addar-mid  .addar-mid-comment .addar-goComment:hover {
+    background-color: #ED7D31;
 }

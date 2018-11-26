@@ -5,20 +5,28 @@
             <div>
                 <div class="amhead-left">
                     <span class="amhead-add">添加</span>
-                    <span  class="amhead-del">删除</span>
+                    <span class="amhead-del">删除</span>
                 </div>
                 <div class="amhead-mid">
-                    <span  class="amhead-ypu">已发布</span>
-                    <span  class="amhead-npu">未发布</span>
-                    <span  class="amhead-yrec">已推荐</span>
-                    <span  class="amhead-nrec">未推荐</span>
-                    <span  class="amhead-yshen">已审核</span>
-                    <span  class="amhead-nshen">未审核</span>
+                    <span class="amhead-all">全部</span>
+                    <p>
+                        <span class="amhead-pu" pu="1">已发布</span>
+                        <span class="amhead-pu" pu="2">未发布</span>
+                    </p>
+                    <p>
+                        <span class="amhead-rec" rec="1">已推荐</span>
+                        <span class="amhead-rec" rec="2">未推荐</span>
+                    </p>
+                    <p>
+                        <span class="amhead-shen" shen="1">已审核</span>
+                        <span class="amhead-shen" shen="2">未审核</span>
+                    </p>
+
 
                 </div>
                 <div class="amhead-right">
                     <input type="text" name="" id="amss">
-                    <span  class="amhead-ss">搜索</span>
+                    <span class="amhead-ss">搜索</span>
                 </div>
             </div>
         </div>
@@ -63,6 +71,51 @@
 </div>
 <script>
     (function () {
+        //获取是否点击发布，是否推荐，是否审核，默认不选
+        var pu = 0,
+            rec = 0,
+            shen = 0,
+            words = '';
+            //是否发布
+        $(".amhead-pu").click(function () {
+            pu = $(this).attr('pu');
+            $(this).css("background-color", 'green');
+            $(this).siblings().css("background-color", '#2196F3')
+            indexar(realToken, pu, rec, shen, words)
+        });
+        //是否推荐
+        $(".amhead-rec").click(function () {
+            rec = $(this).attr('rec');
+            $(this).css("background-color", 'green');
+            $(this).siblings().css("background-color", '#2196F3')
+            indexar(realToken, pu, rec, shen, words)
+        });
+        //是否审核
+        $(".amhead-shen").click(function () {
+            shen = $(this).attr('shen');
+            $(this).css("background-color", 'green');
+            $(this).siblings().css("background-color", '#2196F3')
+            indexar(realToken, pu, rec, shen, words)
+        });
+        //搜索关键字
+        $(".amhead-ss").click(function () {
+            words = $("#amss").val();
+            if (words.length == 0) {
+                alert('请输入关键字');
+                return false;
+            }
+            indexar(realToken, pu, rec, shen, words);
+            $("#amss").val('');
+        });
+        //显示
+        $(".amhead-all").click(function () {
+            $(".amhead-mid").find('span').css("background-color", '#2196F3');
+            pu = 0; rec = 0; shen = 0; words = '';
+            indexar(realToken, pu, rec, shen, words)
+        });
+
+
+
         //table数据填充
         function tablestr(data) {
             var str = '';
@@ -76,7 +129,7 @@
                     '<td><input type="checkbox" id="check-all-ar"></td>' +
                     '<td title="' + tbs[i].content + '">' + tbs[i].content.substring(0, 18) + '...</td>' +
                     '<td>' + tbs[i].article_cate + '</td>' +
-                    '<td>' + tbs[i].publish + '</td>' +
+                    '<td class="pubs">' + tbs[i].publish + '</td>' +
                     '<td>' + tbs[i].is_rec + '</td>' +
                     '<td>' + tbs[i].like + '</td>' +
                     '<td>' + tbs[i].pv + '</td>' +
@@ -87,12 +140,14 @@
             return str;
         }
 
+        //显示
         var realToken = getRealToken();
         if (realToken == undefined || realToken == '' || realToken == null) {
             console.log(realToken);
         } else {
-            indexar(realToken);
+            indexar(realToken, pu, rec, shen, words);
         }
+
 
         //删除操作--删除单条的逻辑
         $(".tb-contents").on('click', '.amdel', function () {
@@ -102,8 +157,6 @@
             del(idarr);
         });
         //删除操作--选择多条删除
-
-
 
         //删除操作方法
         function del(idArr) {
@@ -130,13 +183,51 @@
                 });
             }
         }
+
+        //上下架方法
+        $(".tb-contents").on('click', '.sxj', function () {
+            //获取数据
+            var sxjid = $(this).parent().parent().attr('arid');
+            //复制$(this)给变量，留待请求函数中使用
+            var thistiao = $(this);
+            if (realToken == undefined || realToken == '' || realToken == null) {
+                console.log('用户登录有误');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: getBaseUri() + "api/admin/ar/sxj",
+                    dataType: "json",
+                    data: {
+                        'id': sxjid,
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + realToken,
+                    },
+                    success: function (response) {
+                        //修改上下架状态
+                        thistiao.text(response.data.sxj);
+                        //修改发布状态
+                        thistiao.parent().siblings('.pubs').text(response.data.pub);
+                        alert('修改成功');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
         //显示操作方法
-        function indexar(realToken) {
+        function indexar(realToken, pu, rec, shen, words) {
             $.ajax({
                 type: "GET",
                 url: getBaseUri() + "api/admin/index",
                 dataType: "json",
                 data: {
+                    'pu': pu,
+                    'rec': rec,
+                    'shen': shen,
+                    'words': words
                 },
                 headers: {
                     Authorization: 'Bearer ' + realToken,
@@ -163,7 +254,10 @@
                                     Authorization: 'Bearer ' + realToken,
                                 },
                                 data: {
-
+                                    'pu': pu,
+                                    'rec': rec,
+                                    'shen': shen,
+                                    'words': words
                                 },
                                 success: function (data) {
                                     var tbstr = tablestr(data);
@@ -181,5 +275,15 @@
                 }
             });
         }
+    
+        //点击添加时间跳出弹出框
+        $(".amhead-add").click(function() {
+            $("#bgaddar").show();
+        });
+        $(".button-close-addar").click(function() {
+            $("#text-comments").val('');
+            $("#bgaddar").hide();
+        });
+    
     })();
 </script>

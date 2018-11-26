@@ -76,3 +76,14 @@ $(".amid-left-lis").on('click', 'p', function () {
 $(".outshou").click(function () {
     window.location.href = "/";
 });
+
+
+
+//发表文章
+$(".addar-goComment").click(function(){
+    //获取数据
+    var changecate = $(".addar-mt-changesel").find("option:selected").val();
+    var pubs = $(".addar-mt-changepubsel").find("input[type='radio']:checked").val();
+    var text = $("#addar-text-comments").val();
+    console.log(pubs)
+});
