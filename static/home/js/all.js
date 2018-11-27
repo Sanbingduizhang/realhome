@@ -9,7 +9,6 @@ function ymload() {
         $(".atop").load('/head.html');
         $(".afoot").load('/foot.html');
     }
-
 }
 ymload();
 
@@ -77,13 +76,52 @@ $(".outshou").click(function () {
     window.location.href = "/";
 });
 
-
-
 //发表文章
-$(".addar-goComment").click(function(){
-    //获取数据
-    var changecate = $(".addar-mt-changesel").find("option:selected").val();
-    var pubs = $(".addar-mt-changepubsel").find("input[type='radio']:checked").val();
-    var text = $("#addar-text-comments").val();
+$(".addar-goComment").click(function () {
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == null) {
+        $(".amid").html('<div><img src="/static/common/img/timg.gif" alt="" style="width:60%;"><p class="submit"><a href="/index.html">请返回登录登录。。。</a></p></div>');
+    } else {
+        //获取数据
+        var changecate = $(".addar-mt-changesel").find("option:selected").val();
+        var pubs = $(".addar-mt-changepubsel").find("input[type='radio']:checked").val();
+        var text = $("#addar-text-comments").val();
+        var wordscount = text.length;
+        if (wordscount < 10) {
+            alert("您最少输入是个字符");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: getBaseUri() + "api/admin/ar/pubar",
+            headers: {
+                Authorization: 'Bearer ' + realToken,
+            },
+            data: {
+                cate: changecate,
+                pub: pubs,
+                text: text,
+                wordscount: wordscount
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                console.log(response.code)
+                if (response.code == 1) {
+                    $("#text-comments").val('');
+                    $("#bgaddar").hide();
+                    $(".amid-right-content").load('/home/am.html');
+                    alert(response.data.message);
+
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
     console.log(pubs)
 });

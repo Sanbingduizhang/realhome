@@ -76,7 +76,7 @@
             rec = 0,
             shen = 0,
             words = '';
-            //是否发布
+        //是否发布
         $(".amhead-pu").click(function () {
             pu = $(this).attr('pu');
             $(this).css("background-color", 'green');
@@ -110,7 +110,10 @@
         //显示
         $(".amhead-all").click(function () {
             $(".amhead-mid").find('span').css("background-color", '#2196F3');
-            pu = 0; rec = 0; shen = 0; words = '';
+            pu = 0;
+            rec = 0;
+            shen = 0;
+            words = '';
             indexar(realToken, pu, rec, shen, words)
         });
 
@@ -275,15 +278,43 @@
                 }
             });
         }
-    
-        //点击添加时间跳出弹出框
-        $(".amhead-add").click(function() {
+
+        //点击添加添加时候跳出弹出框
+        $(".amhead-add").click(function () {
+            //获取分类数据
+            $.ajax({
+                type: "GET",
+                url: getBaseUri() + "api/home/cate",
+                dataType: "json",
+                success: function (response) {
+                    if (response.code != 1) {
+                        return false;
+                    }
+                    //循环放入数据
+                    var str = addcate(response.data);
+                    $(".addar-mt-changesel").html(str);
+                }
+            });
             $("#bgaddar").show();
         });
-        $(".button-close-addar").click(function() {
+
+        //获取cate
+        function addcate(data) {
+            var str = '';
+            var cates = data;
+            var len = cates.length;
+            for (var i = 0; i < len; i++) {
+                str += '<option value = "' + cates[i].cateid + '" >' + cates[i].catename + '</option>';
+            }
+            return str;
+        }
+
+
+
+        $(".button-close-addar").click(function () {
             $("#text-comments").val('');
             $("#bgaddar").hide();
         });
-    
+
     })();
 </script>
