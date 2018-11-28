@@ -62,11 +62,13 @@ $(".amid-left-lis").on('click', 'p', function () {
         $(".amid-right-content").load('/home/zl.html');
     } else if (pval == 2) {
         $(".amid-right-content").load('/home/am.html');
-    } else if (pval == 3) {
-        $(".amid-right-content").load('/home/pm.html');
-    } else if (pval == 4) {
-        $(".amid-right-content").load('/home/me.html');
-    } else {
+    } 
+    // else if (pval == 3) {
+    //     $(".amid-right-content").load('/home/pm.html');
+    // } else if (pval == 4) {
+    //     $(".amid-right-content").load('/home/me.html');
+    // } 
+    else {
         $(".amid-right-content").load('/home/other.html');
     }
 });

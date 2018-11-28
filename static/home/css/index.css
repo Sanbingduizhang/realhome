@@ -80,6 +80,9 @@
     float: left;
     margin-left: 20px;
 }
+#mid .content .con-left .con-left-con .other p span:first-child:hover {
+    color: rgb(219, 138, 84);
+}
 
 #mid .content .con-left .con-left-con .other p:last-child {
     float: right;

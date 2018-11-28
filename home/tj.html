@@ -7,15 +7,15 @@
             <ul>
                 <li>
                     <span>文章：</span>
-                    <span>1000</span>
+                    <span class="arcount">1000</span>
                 </li>
                 <li>
                     <span>点赞：</span>
-                    <span>1000</span>
+                    <span class="arlikecount">1000</span>
                 </li>
                 <li>
                     <span>评论：</span>
-                    <span>1000</span>
+                    <span class="arcomcount">1000</span>
                 </li>
             </ul>
 
@@ -25,3 +25,33 @@
     <div class="tj-mid"></div>
     <div class="tj-foot"></div>
 </div>
+<script>
+    (function () {
+        var realToken = getRealToken();
+        //首页顶部的文章，点赞，评论的显示
+        $.ajax({
+            type: "GET",
+            url: getBaseUri() + "api/admin/tj/show",
+            dataType: "json",
+            headers: {
+                Authorization: 'Bearer ' + realToken,
+            },
+            data: {
+
+            },
+            success: function (response) {
+                if (response.code != 1) {
+                    alert(response.data.message);
+                    return false;
+                }
+                //写入数据
+                $(".arcount").text(response.data.arcount);
+                $(".arlikecount").text(response.data.arlikecount);
+                $(".arcomcount").text(response.data.arcomcount);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })();
+</script>

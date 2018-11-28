@@ -1,13 +1,34 @@
+$(".con-left-cons").on('click', '.arlikes', function () {
+    var arid = $(this).attr('arid');
+
+    console.log(arid);
+    return false;
+});
+
+$(".con-right-con").on('click', 'p', function () {
+    // console.log($(this).attr('arid'));
+    var thisall = $(this);
+    clickdetail(thisall);
+});
+
 //点击单个显示详情内容的
+//关闭细节展示
 $(".button-close-det").click(function () {
     $(".det-head").html('<img src="/static/common/img/timg.gif" alt="" style="width: 30px;">');
     $(".det-mid-text").html('<img src="/static/common/img/timg.gif" alt="" style="width: 300px;">');
     $(".det-mid-right").html('<img src="/static/common/img/timg.gif" alt="" style="width: 260px;">');
     $("#bgdet").hide();
 });
+//文章细节展示
 $(".con-left-cons").on('click', '.con-left-con', function () {
+    var thisall = $(this);
+    clickdetail(thisall);
+});
+
+//文章细节展示所有内容的方法
+function clickdetail(thisall) {
     //获取arid
-    var articleid = $(this).attr('arid');
+    var articleid = thisall.attr('arid');
     //判断用户是否登录
     var realToken = getRealToken();
     if (realToken == undefined || realToken == '' || realToken == 'null') {
@@ -70,7 +91,9 @@ $(".con-left-cons").on('click', '.con-left-con', function () {
     });
     //显示渲染好的页面
     $("#bgdet").show();
-});
+}
+
+
 
 //评论的渲染
 function indexComXR(data) {
@@ -148,7 +171,7 @@ headeCate();
 //首页左边主要内容显示
 $.ajax({
     type: "GET",
-    url: getBaseUri() + "/api/home/index",
+    url: getBaseUri() + "api/home/index",
     dataType: "json",
     success: function (data) {
         if (data.code != 1) {
@@ -165,7 +188,7 @@ $.ajax({
             callback: function (api) {
                 $.ajax({
                     type: "GET",
-                    url: getBaseUri() + "/api/home/index?page=" + api.getCurrent(),
+                    url: getBaseUri() + "api/home/index?page=" + api.getCurrent(),
                     dataType: "json",
                     success: function (data) {
                         var str = indexShow(data.data.data);
@@ -185,7 +208,7 @@ $.ajax({
 //首页右边最新显示
 $.ajax({
     type: "GET",
-    url: getBaseUri() + "/api/home/index-other?recornew=2",
+    url: getBaseUri() + "api/home/index-other?recornew=2",
     dataType: "json",
     success: function (data) {
         if (data.code != 1) {
@@ -202,7 +225,7 @@ $.ajax({
             callback: function (api) {
                 $.ajax({
                     type: "GET",
-                    url: getBaseUri() + "/api/home/index-other?recornew=2&page=" + api.getCurrent(),
+                    url: getBaseUri() + "api/home/index-other?recornew=2&page=" + api.getCurrent(),
                     dataType: "json",
                     success: function (data) {
                         var str = rightTopShow(data.data.data);
@@ -222,7 +245,7 @@ $.ajax({
 //首页右边推荐显示
 $.ajax({
     type: "GET",
-    url: getBaseUri() + "/api/home/index-other?recornew=1",
+    url: getBaseUri() + "api/home/index-other?recornew=1",
     dataType: "json",
     success: function (data) {
         if (data.code != 1) {
@@ -240,7 +263,7 @@ $.ajax({
             callback: function (api) {
                 $.ajax({
                     type: "GET",
-                    url: getBaseUri() + "/api/home/index-other?recornew=1&page=" + api.getCurrent(),
+                    url: getBaseUri() + "api/home/index-other?recornew=1&page=" + api.getCurrent(),
                     dataType: "json",
                     success: function (data) {
                         var str = rightTopShow(data.data.data);
@@ -266,7 +289,7 @@ function myContent() {
     }
     $.ajax({
         type: "GET",
-        url: getBaseUri() + "/api/opera/my-contents",
+        url: getBaseUri() + "api/opera/my-contents",
         dataType: "json",
         headers: {
             Authorization: 'Bearer ' + token,
@@ -286,7 +309,7 @@ function myContent() {
                 callback: function (api) {
                     $.ajax({
                         type: "GET",
-                        url: getBaseUri() + "/api/opera/my-contents?page=" + api.getCurrent(),
+                        url: getBaseUri() + "api/opera/my-contents?page=" + api.getCurrent(),
                         dataType: "json",
                         headers: {
                             Authorization: 'Bearer ' + token,
@@ -336,7 +359,7 @@ function indexShow(data) {
             '<div class="other">' +
             '<p class="arcate">分类:' + articles[i].article_cate.name + '</p>' +
             '<p>' +
-            '<span class="arlikes">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
+            '<span class="arlikes" arid="' + articles[i].id + '">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
             '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].pv + ')</span>' +
             '</p>' +
             '</div>' +
@@ -350,7 +373,7 @@ function rightTopShow(data) {
     var newArticles = data;
     var len = newArticles.length;
     for (var i = 0; i < len; i++) {
-        str += '<p><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span></p>';
+        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span></p>';
     }
     return str;
 }

@@ -478,11 +478,13 @@ th {
 }
 #bgaddar .addar-index {
     position: absolute;
-    width: 80%;
-    height: 80%;
+    width: 950px;
+    height: 700px;
     background-color: #fff;
-    left: 10%;
-    top: 10%;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: -350px;
     border-radius: 50px;
     box-shadow: 5px 5px 5px #888888;
 }
