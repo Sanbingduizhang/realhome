@@ -460,6 +460,18 @@
     word-wrap: break-word;
     margin-left: 10px;
 }
+#bgdet .det-index .det-mid .det-mid-right .ardshowmore {
+    width: 220px;
+    height: 30px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #F0F8FF;
+    margin-top: 10px;
+    line-height: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgb(131, 126, 126);
+    cursor: pointer;
+}
 /* 评论显示点赞回复和删除 */
 #bgdet .det-index .det-mid .det-mid-right .det-mid-right-comments .comment-san {
     margin-top: 5px;

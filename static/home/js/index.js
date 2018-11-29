@@ -5,6 +5,62 @@ $(".con-left-cons").on('click', '.arlikes', function () {
     return false;
 });
 
+$(".con-right-nr").on('click', '.imglike', function () {
+    console.log(333);
+    $(this).children().attr('src', '/static/home/img/likego.png');
+    var arid = $(this).parent().attr('arid');
+
+    console.log(arid);
+    return false;
+});
+//发表评论
+$(".goComment").click(function () {
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        alert('请先登录');
+        return false;
+    }
+    //获取数据
+    var content = $("#text-comments").val();
+    var arid = $(this).attr('arid');
+    if (content.length < 5) {
+        alert('请输入最少五个字符的内容');
+        return false;
+    }
+    if (arid.length <= 0) {
+        alert('请稍后');
+        return false;
+    }
+    //开始发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/arcomadd",
+        data: {
+            arid: arid,
+            content: content
+        },
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.code != 1) {
+                alert(response.message);
+                return false;
+            }
+            indexComajax(realToken, arid);
+            $("#text-comments").val('');
+            alert(response.data.message);
+            //
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+});
+
+//点击首页右边显示细节内容
 $(".con-right-con").on('click', 'p', function () {
     // console.log($(this).attr('arid'));
     var thisall = $(this);
@@ -17,6 +73,7 @@ $(".button-close-det").click(function () {
     $(".det-head").html('<img src="/static/common/img/timg.gif" alt="" style="width: 30px;">');
     $(".det-mid-text").html('<img src="/static/common/img/timg.gif" alt="" style="width: 300px;">');
     $(".det-mid-right").html('<img src="/static/common/img/timg.gif" alt="" style="width: 260px;">');
+    $(".goComment").attr('arid', '');
     $("#bgdet").hide();
 });
 //文章细节展示
@@ -64,6 +121,7 @@ function clickdetail(thisall) {
             //填充内容
             var contentstr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + datas.content;
             $(".det-mid-text").html(contentstr);
+            $(".goComment").attr('arid', datas.id);
         },
         error: function (error) {
             console.log(error);
@@ -71,6 +129,39 @@ function clickdetail(thisall) {
     });
 
     //评论
+    indexComajax(realToken, articleid);
+    //显示渲染好的页面
+    $("#bgdet").show();
+}
+
+// 评论显示中，显示更多评论
+$(".det-mid-right").on('click', '.ardshowmore', function () {
+    var totalp = $(this).attr('total-p');
+    var currentp = $(this).attr('current-p') + 1;
+    var arid = $(this).attr('arid');
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        realToken = '';
+    }
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/artcom/" + arid + '?page='+ currentp ,
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                return false;
+            }
+        }
+    })
+});
+
+
+//评论请求
+function indexComajax(realToken, articleid) {
     $.ajax({
         type: "GET",
         url: getBaseUri() + "api/home/artcom/" + articleid,
@@ -89,12 +180,7 @@ function clickdetail(thisall) {
             console.log(error);
         }
     });
-    //显示渲染好的页面
-    $("#bgdet").show();
 }
-
-
-
 //评论的渲染
 function indexComXR(data) {
     var len = data.data.length;
@@ -106,7 +192,7 @@ function indexComXR(data) {
         return '<div style="font-size:18px;color:brown;margin:50% 50%">暂无评论</div>';
     }
     for (var i = 0; i < len; i++) {
-        str += '<div class="det-mid-right-comments">' +
+        str += '<div class="det-mid-right-comments det-mid-right-comments-id'+datas[i].id+'">' +
             '<div class="comment-author">' +
             '<span class="author-comment">' + datas[i].com_user + '</span>评论:' +
             '</div>' +
@@ -122,6 +208,9 @@ function indexComXR(data) {
             '<div class="comment-replys comment-replyid' + datas[i].id + '">' +
             '</div>' +
             '</div>';
+    }
+    if (data.pagination.total_page > 1 && (data.pagination.total_page != data.pagination.current)) {
+        str += '<div class="ardshowmore" total-p="' + data.pagination.total_page + '" current-p="' + data.pagination.current + '" arid="' + datas[len-1].articleid + '" lastid = "'+ datas[len-1].id +'">显示更多</div>';
     }
     // '<div class="comment-reply">' +
     //     '<div>' +
@@ -373,7 +462,7 @@ function rightTopShow(data) {
     var newArticles = data;
     var len = newArticles.length;
     for (var i = 0; i < len; i++) {
-        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span></p>';
+        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span><span class="imglike"><img src="/static/home/img/like.png" alt=""></span></p>';
     }
     return str;
 }

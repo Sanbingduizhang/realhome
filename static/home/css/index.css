@@ -13,19 +13,23 @@
 #mid .content .con-left {
     height: 885px;
 }
-#mid .content .con-left-duo .con-left-title{
+
+#mid .content .con-left-duo .con-left-title {
     height: 30px;
     margin-top: 20px;
     margin-bottom: 5px;
     text-align: left;
 }
+
 #mid .content .con-left-duo .con-left-title span {
     color: #E0B293;
     cursor: pointer;
 }
+
 #mid .content .con-left-duo .con-left-title span:first-child {
     display: none;
 }
+
 #mid .content .con-left .con-left-con {
     margin: 5px 10px;
     float: left;
@@ -80,8 +84,9 @@
     float: left;
     margin-left: 20px;
 }
+
 #mid .content .con-left .con-left-con .other p span:first-child:hover {
-    color: rgb(219, 138, 84);
+    color: red;
 }
 
 #mid .content .con-left .con-left-con .other p:last-child {
@@ -100,15 +105,18 @@
 #mid .content .con-right .con-right-my {
     background-color: #F0F1F2;
     width: 100%;
-    height: 238px;;
+    height: 238px;
+    ;
     margin-top: 10px;
     border-radius: 20px;
     opacity: 0.8;
 }
+
 #mid .content .con-right .con-right-my .my-some-title {
     text-align: left;
     padding-left: 10px;
 }
+
 #mid .content .con-right .con-right-con .con-right-css {
     background-color: #F0F1F2;
     width: 100%;
@@ -122,6 +130,21 @@
 #mid .content .con-right .con-right-con .con-right-css .con-right-all {
     margin-left: 10px;
     padding-top: 10px;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .submit {
+    width: 220px;
+    height: 30px;
+    background-color: #F0F8FF;
+    margin-top: 10px;
+    line-height: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgb(131, 126, 126);
+    cursor: pointer;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .submit span {
+    margin-left: 30px;
 }
 
 #mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr {
@@ -144,10 +167,26 @@
     cursor: pointer;
 }
 
-#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p span {
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p span:first-child {
     padding: 10px;
     color: #999;
     font-size: 14px;
+}
+
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p span:last-child {
+    text-align: center;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    float: right;
+}
+
+/* #mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p .imglike:hover img {
+    background-color: aqua;
+    color: brown;
+} */
+#mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p img {
+    width: 20px;
 }
 
 #mid .content .con-right .con-right-con .con-right-css .con-right-all .con-right-nr p:hover {
@@ -173,13 +212,14 @@
 }
 
 /* 最新里面的分页重写 */
-.m-style-right a{
+.m-style-right a {
     width: 20px;
     height: 20px;
     line-height: 20px;
     border-radius: 6px;
 }
-.m-style-right .active{
+
+.m-style-right .active {
     width: 20px;
     height: 20px;
     line-height: 20px;
