@@ -136,7 +136,61 @@ function clickdetail(thisall) {
 
 //对评论点赞
 $(".det-mid-right").on('click', '.comsan-like', function () {
-    console.log($(this).attr("arlid"));
+    //获取此条评论的id
+    var arlid = $(this).attr("arlid");
+    var artid = $(this).attr("artid");
+    var thisk = $(this);
+    // console.log($(this).text());
+    // return false;
+    // console.log(arlid);
+    // console.log(artid);
+    // return false;
+    //获取此条评论所对应的文章id
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        alert('请登录');
+        return false;
+    }
+    //发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/likego",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        data: {
+            arid: arlid,
+            type: 2
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                alert('操作失败');
+                return false;
+            }
+            var str = thisk.text().split("(");
+            var str1 = str[1].split(")");
+
+            if (str[0] == '点赞') {
+                var str11 = Number(str1[0]) + 1;
+                var insertstr = '已赞(' + str11 + ')';
+                thisk.text(insertstr);
+                thisk.css('color', 'red');
+            } else {
+                var str11 = Number(str1[0]) - 1;
+                var insertstr = '点赞(' + str11 + ')';
+                thisk.text(insertstr);
+                thisk.css('color', '#5f5f5f');
+                
+            }
+            // indexComajax(realToken, artid);
+            alert('操作成功');
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 });
 
 
@@ -155,7 +209,38 @@ $(".det-mid-right").on('click', '.comsan-reply', function () {
 
 //删除属于自己的评论
 $(".det-mid-right").on('click', '.comsan-del', function () {
-    console.log($(this).attr("ardid"));
+    var ardid = $(this).attr("ardid");
+    var ardthis = $(this);
+    
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        alert('请登录');
+        return false;
+    }
+    //发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/arcomdel",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        data: {
+            arcid: ardid,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                alert('操作失败');
+                return false;
+            }
+            ardthis.parent().parent().remove();
+            alert('操作成功');
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 });
 
 
@@ -230,11 +315,16 @@ function indexComXR(data) {
             '<span class="author-comment">' + datas[i].com_user + '</span>评论:' +
             '</div>' +
             '<div class="comment-comment">' + datas[i].content + '</div>' +
-            '<div class="comment-san">' +
-            '<span class="comsan-like" arlid="' + datas[i].id + '">点赞(' + datas[i].likecount + ')</span>' +
-            '<span class="comsan-reply" arrid="' + datas[i].id + '">回复(' + datas[i].com_reply_count + ')</span>';
+            '<div class="comment-san">';
+        if (datas[i].is_like == true) {
+            str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;">已赞(' + datas[i].likecount + ')</span>';
+        } else {
+            str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '">点赞(' + datas[i].likecount + ')</span>';
+        }
+
+        str += '<span class="comsan-reply" arrid="' + datas[i].id + '" artid="' + datas[i].articleid + '">回复(' + datas[i].replynum + ')</span>';
         if (datas[i].is_me == true) {
-            str += '<span class="comsan-del" ardid="' + datas[i].id + '">删除</span>';
+            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;">删除</span>';
         }
 
         str += '</div>' +
