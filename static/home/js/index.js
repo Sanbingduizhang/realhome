@@ -182,7 +182,7 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
                 var insertstr = '点赞(' + str11 + ')';
                 thisk.text(insertstr);
                 thisk.css('color', '#5f5f5f');
-                
+
             }
             // indexComajax(realToken, artid);
             alert('操作成功');
@@ -201,6 +201,7 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
 
 //对评论回复
 $(".det-mid-right").on('click', '.comsan-reply', function () {
+    var arrid = 'aa';
     console.log($(this).attr("arrid"));
 });
 
@@ -211,7 +212,7 @@ $(".det-mid-right").on('click', '.comsan-reply', function () {
 $(".det-mid-right").on('click', '.comsan-del', function () {
     var ardid = $(this).attr("ardid");
     var ardthis = $(this);
-    
+
     //判断用户是否登录
     var realToken = getRealToken();
     if (realToken == undefined || realToken == '' || realToken == 'null') {
