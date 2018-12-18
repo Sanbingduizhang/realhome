@@ -193,13 +193,21 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
     });
 });
 
+$(".det-mid-right").on('click', '#replys-replygo', function () {
+    var replyid = $(this).attr('arcomid');
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        alert('请登录');
+        return false;
+    }
+    //开始发送请求
+    console.log(replyid);
+});
 
 
 
-
-
-
-//对评论回复
+//对评论回复展示相关
 $(".det-mid-right").on('click', '.comsan-reply', function () {
     var artf = $(this).attr("artf");
 
@@ -238,7 +246,7 @@ function comreplyajax(realToken, arcomid, classarr) {
             if (response.code != 1) {
                 return false;
             }
-            str = comreplyxuan(response.data);
+            str = comreplyxuan(response.data,arcomid);
             $(classarr).html(str);
         },
         error: function (error) {
@@ -247,7 +255,7 @@ function comreplyajax(realToken, arcomid, classarr) {
     });
 }
 //回复的渲染页面执行
-function comreplyxuan(data) {
+function comreplyxuan(data,arcomid) {
     var len = data.data.length;
     var datas = data.data;
     var yema = data.pagination;
@@ -257,7 +265,7 @@ function comreplyxuan(data) {
         '<div>' +
         '<textarea name="" id="text-replys" style="resize: none;margin-top: 8px;margin-left: -25px;width: 200px;height: 80px;"></textarea>' +
         '</div>' +
-        '<div id="replys-replygo" style="margin-left: 140px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;">回复</div></div>' +
+        '<div id="replys-replygo" style="margin-left: 140px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="'+arcomid+'">回复</div></div>' +
         '</div>';
 
     if (len == 0) {
@@ -283,9 +291,9 @@ function comreplyxuan(data) {
             str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="cursor: pointer;color: #5f5f5f;">点赞(' + datas[i].likecount + ')</span>';
         }
 
-        str += '<span class="comment-reply-reply" arrid="12" artid="8" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;">回复</span>';
+        str += '<span class="comment-reply-reply" arrid="12" artid="8" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;" arrid="' + datas[i].id + '">回复</span>';
         if (datas[i].is_me == true) {
-            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;margin-left: 10px;">删除</span>';
+            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;margin-left: 10px;" ardid="' + datas[i].id + '">删除</span>';
         }
 
         str += '</div>' +
