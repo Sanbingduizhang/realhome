@@ -429,7 +429,7 @@
 /* 首页显示细节主要部分的右边 */
 #bgdet .det-index .det-mid .det-mid-right {
     float: right;
-    width: 30%;
+    width: 295px;
     height: 97%;
     background-color: whitesmoke;
     margin: 10px 5px;

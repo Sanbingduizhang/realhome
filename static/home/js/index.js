@@ -201,10 +201,123 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
 
 //对评论回复
 $(".det-mid-right").on('click', '.comsan-reply', function () {
-    var arrid = 'aa';
-    console.log($(this).attr("arrid"));
+    var artf = $(this).attr("artf");
+
+    var arrid = $(this).attr("arrid");
+    var arrthis = $(this);
+    var classarr = '.comment-replyid' + arrid;
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        realToken = '';
+    }
+
+    if (artf == 2) {
+
+        comreplyajax(realToken, arrid, classarr);
+        $(this).attr("artf", 1);
+        $(classarr).show();
+    } else {
+        $(this).attr("artf", 2)
+        $(classarr).hide();
+    }
+
+    console.log('comment-replyid' + arrid);
 });
 
+//回复的请求执行
+function comreplyajax(realToken, arcomid, classarr) {
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/artreply/" + arcomid,
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                return false;
+            }
+            str = comreplyxuan(response.data);
+            $(classarr).html(str);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+//回复的渲染页面执行
+function comreplyxuan(data) {
+    var len = data.data.length;
+    var datas = data.data;
+    var yema = data.pagination;
+
+    //必有的回复的填充
+    var str = '<div class="comment-reply-text">' +
+        '<div>' +
+        '<textarea name="" id="text-replys" style="resize: none;margin-top: 8px;margin-left: -25px;width: 200px;height: 80px;"></textarea>' +
+        '</div>' +
+        '<div id="replys-replygo" style="margin-left: 140px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;">回复</div></div>' +
+        '</div>';
+
+    if (len == 0) {
+        return str;
+    }
+    //各种回复显示
+    for (var i = 0; i < len; i++) {
+        str += '<div class="comment-reply">' +
+            '<div>';
+
+        if (datas[i].pid_arply == null) {
+            str += '<span>' + datas[i].reply_user.name + '</span>&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;<span></span>';
+        } else {
+            str += '<span>' + datas[i].reply_user.name + '</span>&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;<span>' + datas[i].pid_arply.name + ':</span>';
+        }
+
+        str += '</div>' +
+            '<div class="comment-reply-text">' + datas[i].content + '</div>' +
+            '<div class="comment-reply-san"  style="margin-left: 22px;">';
+        if (datas[i].is_like == true) {
+            str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="color:red;cursor: pointer;color: #5f5f5f;">已赞(' + datas[i].likecount + ')</span>';
+        } else {
+            str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="cursor: pointer;color: #5f5f5f;">点赞(' + datas[i].likecount + ')</span>';
+        }
+
+        str += '<span class="comment-reply-reply" arrid="12" artid="8" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;">回复</span>';
+        if (datas[i].is_me == true) {
+            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;margin-left: 10px;">删除</span>';
+        }
+
+        str += '</div>' +
+            '<div class="span-reply" style="display:none;">' +
+            '<div>' +
+            '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>' +
+            '</div>' +
+            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;">回复</div></div>' +
+            '</div>' +
+            '</div>';
+
+    }
+    //是否有显示更多的选项
+    if (data.pagination.total_page > 1 && (data.pagination.total_page != data.pagination.current)) {
+        str += '<div class="arreplyshowmore" total-p="' + data.pagination.total_page + '" current-p="' + data.pagination.current + '" arid="' + datas[len - 1].articleid + '" lastid = "' + datas[len - 1].id + '">显示更多</div>';
+    }
+
+    return str;
+}
+
+
+$(".det-mid-right").on('click', '.comment-reply-reply', function () {
+    console.log(343434343)
+    var artfspan = $(this).attr('artf-span');
+    if (artfspan == 2) {
+        $(this).attr('artf-span', 1);
+        $('.span-reply').show();
+    } else {
+        $(this).attr('artf-span', 2);
+        $('.span-reply').hide();
+    }
+});
 
 
 
@@ -313,7 +426,7 @@ function indexComXR(data) {
     for (var i = 0; i < len; i++) {
         str += '<div class="det-mid-right-comments det-mid-right-comments-id' + datas[i].id + '">' +
             '<div class="comment-author">' +
-            '<span class="author-comment">' + datas[i].com_user + '</span>评论:' +
+            '<span class="author-comment">' + datas[i].com_user + '</span>&nbsp;&nbsp;&nbsp;评论:' +
             '</div>' +
             '<div class="comment-comment">' + datas[i].content + '</div>' +
             '<div class="comment-san">';
@@ -323,13 +436,13 @@ function indexComXR(data) {
             str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '">点赞(' + datas[i].likecount + ')</span>';
         }
 
-        str += '<span class="comsan-reply" arrid="' + datas[i].id + '" artid="' + datas[i].articleid + '">回复(' + datas[i].replynum + ')</span>';
+        str += '<span class="comsan-reply" arrid="' + datas[i].id + '" artid="' + datas[i].articleid + '" artf="2">回复(' + datas[i].replynum + ')</span>';
         if (datas[i].is_me == true) {
             str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;">删除</span>';
         }
 
         str += '</div>' +
-            '<div class="comment-replys comment-replyid' + datas[i].id + '">' +
+            '<div class="comment-replys comment-replyid' + datas[i].id + '" style="display:none">' +
             '</div>' +
             '</div>';
     }
