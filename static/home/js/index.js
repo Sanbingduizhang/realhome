@@ -301,7 +301,7 @@ function comreplyxuan(data,arcomid) {
             '<div>' +
             '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>' +
             '</div>' +
-            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;">回复</div></div>' +
+            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arrplyid="'+datas[i].id+'" pid="'+datas[i].pid+'">回复</div></div>' +
             '</div>' +
             '</div>';
 
