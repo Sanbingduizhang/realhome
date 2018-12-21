@@ -194,18 +194,68 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
 });
 
 $(".det-mid-right").on('click', '#replys-replygo', function () {
-    var replyid = $(this).attr('arcomid');
     //判断用户是否登录
     var realToken = getRealToken();
     if (realToken == undefined || realToken == '' || realToken == 'null') {
         alert('请登录');
         return false;
     }
+    //获取数据
+    var replyid = $(this).attr('arcomid');
+    var content = $("#text-replys").val();
+    console.log(content);
     //开始发送请求
-    console.log(replyid);
+    if (content.length <= 0) {
+        alert('请输入内容');
+        return false;
+    }
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/arrepadd",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        data: {
+            content: content,
+            type: 1,
+            arcid: replyid
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                alert(response.message);
+                return false;
+            }
+            //如果成功,则把返回的数据写在前面
+            var str = strrepxuan();
+            $('.comment-reply-text-com').after(str);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 });
 
-
+function strrepxuan() {
+        var str = '<div class="comment-reply">'+
+                    '<div>'+
+                        '<span>瘪三</span>&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;<span></span>'+
+                    '</div>'+
+                    '<div class="comment-reply-text">发公司对方水电费水电费</div>'+
+                    '<div class="comment-reply-san" style="margin-left: 22px;">'+
+                        '<span class="comment-reply-like" arlid="3" style="cursor: pointer;color: #5f5f5f;">点赞(0)</span>'+
+                        '<span class="comment-reply-reply" arrid="12" artid="8" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;">回复</span>'+
+                        '<span class="comsan-del" ardid="3" artid="undefined" style="color:red;margin-left: 10px;">删除</span>'+
+                    '</div>'+
+                    '<div class="span-reply" style="display:none;">'+
+                        '<div>'+
+                            '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>'+
+                        '</div>'+
+                        '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arrplyid="3" pid="0">回复</div>'+
+                    '</div>'+
+                '</div>';
+                return str;
+}
 
 //对评论回复展示相关
 $(".det-mid-right").on('click', '.comsan-reply', function () {
@@ -246,7 +296,7 @@ function comreplyajax(realToken, arcomid, classarr) {
             if (response.code != 1) {
                 return false;
             }
-            str = comreplyxuan(response.data,arcomid);
+            str = comreplyxuan(response.data, arcomid);
             $(classarr).html(str);
         },
         error: function (error) {
@@ -255,17 +305,17 @@ function comreplyajax(realToken, arcomid, classarr) {
     });
 }
 //回复的渲染页面执行
-function comreplyxuan(data,arcomid) {
+function comreplyxuan(data, arcomid) {
     var len = data.data.length;
     var datas = data.data;
     var yema = data.pagination;
 
     //必有的回复的填充
-    var str = '<div class="comment-reply-text">' +
+    var str = '<div class="comment-reply-text comment-reply-text-reply">' +
         '<div>' +
         '<textarea name="" id="text-replys" style="resize: none;margin-top: 8px;margin-left: -25px;width: 200px;height: 80px;"></textarea>' +
         '</div>' +
-        '<div id="replys-replygo" style="margin-left: 140px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="'+arcomid+'">回复</div></div>' +
+        '<div id="replys-replygo" style="margin-left: 140px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="' + arcomid + '">回复</div></div>' +
         '</div>';
 
     if (len == 0) {
@@ -283,7 +333,7 @@ function comreplyxuan(data,arcomid) {
         }
 
         str += '</div>' +
-            '<div class="comment-reply-text">' + datas[i].content + '</div>' +
+            '<div class="comment-reply-text comment-reply-text-com">' + datas[i].content + '</div>' +
             '<div class="comment-reply-san"  style="margin-left: 22px;">';
         if (datas[i].is_like == true) {
             str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="color:red;cursor: pointer;color: #5f5f5f;">已赞(' + datas[i].likecount + ')</span>';
@@ -301,7 +351,7 @@ function comreplyxuan(data,arcomid) {
             '<div>' +
             '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>' +
             '</div>' +
-            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arrplyid="'+datas[i].id+'" pid="'+datas[i].pid+'">回复</div></div>' +
+            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arrplyid="' + datas[i].id + '" pid="' + datas[i].pid + '">回复</div></div>' +
             '</div>' +
             '</div>';
 
