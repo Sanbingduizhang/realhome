@@ -239,7 +239,7 @@
 #bgsub .sub-index {
     position: absolute;
     width: 366px;
-    height: 290px;
+    height: 350px;
     background-color: #fff;
     left: 50%;
     top: 50%;
@@ -248,7 +248,18 @@
     border-radius: 50px;
     box-shadow: 5px 5px 5px #888888;
 }
-
+#bgsub .sub-index-sub {
+    position: absolute;
+    width: 366px;
+    height: 285px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    margin-left: -183px;
+    margin-top: -145px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 5px #888888;
+}
 #bgsub .button-close {
     float: right;
     width: 45px;
@@ -294,7 +305,7 @@
     margin-top: 30px;
 }
 
-#bgsub .sub-index .sub-bottom .submitgo {
+#bgsub .sub-index .sub-bottom .submitgo,.zhucego {
     border-radius: 25px;
     background-color: #05D9A9;
     font-size: 15px;
@@ -310,7 +321,10 @@
     background-color: #2C95CF;
 }
 
-#bgsub .sub-index .sub-bottom .submitfog {
+#bgsub .sub-index .sub-bottom .zhucego:hover {
+    background-color: #2C95CF;
+}
+#bgsub .sub-index .sub-bottom .submitfog,.zhucego {
     margin-top: 15px;
     margin: 10px auto 0px;
     font-size: 12px;
