@@ -1,6 +1,55 @@
 $(".con-left-cons").on('click', '.arlikes', function () {
     var arid = $(this).attr('arid');
 
+    var thisk = $(this);
+
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        realToken = '';
+    }
+
+    //发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/likego",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        data: {
+            arid: arid,
+            type: 1
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                alert('操作失败');
+                return false;
+            }
+            var str = thisk.text().split("(");
+            var str1 = str[1].split(")");
+
+            if (str[0] == '点赞') {
+                var str11 = Number(str1[0]) + 1;
+                var insertstr = '已赞(' + str11 + ')';
+                thisk.text(insertstr);
+                thisk.css('color', '#80406c');
+            } else {
+                var str11 = Number(str1[0]) - 1;
+                var insertstr = '点赞(' + str11 + ')';
+                thisk.text(insertstr);
+                thisk.css('color', 'rgb(117, 111, 111)');
+
+            }
+            alert('操作成功');
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+
+
     console.log(arid);
     return false;
 });
@@ -13,6 +62,7 @@ $(".con-right-nr").on('click', '.imglike', function () {
     console.log(arid);
     return false;
 });
+
 //发表评论
 $(".goComment").click(function () {
     var realToken = getRealToken();
@@ -23,8 +73,8 @@ $(".goComment").click(function () {
     //获取数据
     var content = $("#text-comments").val();
     var arid = $(this).attr('arid');
-    if (content.length < 5) {
-        alert('请输入最少五个字符的内容');
+    if (content.length < 1) {
+        alert('请输入最少一个字符的内容');
         return false;
     }
     if (arid.length <= 0) {
@@ -48,9 +98,18 @@ $(".goComment").click(function () {
                 alert(response.message);
                 return false;
             }
-            indexComajax(realToken, arid);
+            // indexComajax(realToken, arid);
+            var str = comOneXuan(response.data);
             $("#text-comments").val('');
-            alert(response.data.message);
+            $(".det-mid-right").prepend(str);
+            //头部评论字数变化
+            var str = $('.arcom-head').text().split("(");
+            var str1 = str[1].split(")");
+            var str11 = Number(str1[0]) + 1;
+            var insertstr = '评论(' + str11 + ')';
+            $('.arcom-head').text(insertstr);
+
+            alert('添加成功');
             //
         },
         error: function (error) {
@@ -59,6 +118,36 @@ $(".goComment").click(function () {
     });
 
 });
+
+//单个评论添加页面渲染
+function comOneXuan(datas) {
+    var str = '';
+    if (datas.len == 0) {
+        return str;
+    }
+    str += '<div class="det-mid-right-comments det-mid-right-comments-id' + datas.id + '">' +
+        '<div class="comment-author">' +
+        '<span class="author-comment">' + datas.com_user + '</span>&nbsp;&nbsp;&nbsp;评论:' +
+        '</div>' +
+        '<div class="comment-comment">' + datas.content + '</div>' +
+        '<div class="comment-san">';
+    if (datas.is_like == true) {
+        str += '<span class="comsan-like" arlid="' + datas.id + '" artid="' + datas.articleid + '" style="color:#7f1818;">已赞(' + datas.likecount + ')</span>';
+    } else {
+        str += '<span class="comsan-like" arlid="' + datas.id + '" artid="' + datas.articleid + '">点赞(' + datas.likecount + ')</span>';
+    }
+
+    str += '<span class="comsan-reply" arrid="' + datas.id + '" artid="' + datas.articleid + '" artf="2">回复(' + datas.replynum + ')</span>';
+    if (datas.is_me == true) {
+        str += '<span class="comsan-del" ardid="' + datas.id + '" artid="' + datas.articleid + '" style="color:#5f5f5f;">删除</span>';
+    }
+
+    str += '</div>' +
+        '<div class="comment-replys comment-replyid' + datas.id + '" style="display:none">' +
+        '</div>' +
+        '</div>';
+    return str;
+}
 
 //点击首页右边显示细节内容
 $(".con-right-con").on('click', 'p', function () {
@@ -82,6 +171,7 @@ $(".con-left-cons").on('click', '.con-left-con', function () {
     clickdetail(thisall);
 });
 
+//文章细节显示点赞
 $(".det-index").on('click', '.arlike-head', function () {
     var artiid = $(this).attr('articleid');
     var thisk = $(this);
@@ -115,12 +205,12 @@ $(".det-index").on('click', '.arlike-head', function () {
                 var str11 = Number(str1[0]) + 1;
                 var insertstr = '已赞(' + str11 + ')';
                 thisk.text(insertstr);
-                thisk.css('color', 'red');
+                thisk.css('color', '#6b2da2');
             } else {
                 var str11 = Number(str1[0]) - 1;
                 var insertstr = '点赞(' + str11 + ')';
                 thisk.text(insertstr);
-                thisk.css('color', '#5f5f5f');
+                thisk.css('color', 'midnightblue');
 
             }
             alert('操作成功');
@@ -130,7 +220,6 @@ $(".det-index").on('click', '.arlike-head', function () {
         }
     });
 
-    console.log(artiid);
 });
 
 //文章细节展示所有内容的方法
@@ -158,11 +247,17 @@ function clickdetail(thisall) {
 
             var datas = response.data;
             //填充头部信息
-            var toustr = '<span>分类:' + datas.arcatename + '</span>' +
-                '<span>&nbsp;&nbsp;</span>' +
-                '<span class="arlike-head" articleid="' + articleid + '" style="cursor: pointer;">点赞(' + datas.like + ')</span>' +
-                '<span>&nbsp;&nbsp;</span>' +
-                '<span>评论(' + datas.pv + ')</span>' +
+            var toustr = '';
+            toustr += '<span>分类:' + datas.arcatename + '</span>' +
+                '<span>&nbsp;&nbsp;</span>';
+            if (datas.is_like == true) {
+                toustr += '<span class="arlike-head" articleid="' + articleid + '" style="cursor: pointer;color:#6b2da2;">已赞(' + datas.like + ')</span>';
+            } else {
+                toustr += '<span class="arlike-head" articleid="' + articleid + '" style="cursor: pointer;">点赞(' + datas.like + ')</span>';
+            }
+
+            toustr += '<span>&nbsp;&nbsp;</span>' +
+                '<span class="arcom-head">评论(' + datas.pv + ')</span>' +
                 '<span>&nbsp;&nbsp;</span>' +
                 '<span>作者:' + datas.arusername + '</span>' +
                 '<span>&nbsp;&nbsp;</span>' +
@@ -222,7 +317,7 @@ $(".det-mid-right").on('click', '.comsan-like', function () {
                 var str11 = Number(str1[0]) + 1;
                 var insertstr = '已赞(' + str11 + ')';
                 thisk.text(insertstr);
-                thisk.css('color', 'red');
+                thisk.css('color', '#7f1818');
             } else {
                 var str11 = Number(str1[0]) - 1;
                 var insertstr = '点赞(' + str11 + ')';
@@ -274,7 +369,7 @@ $(".det-mid-right").on('click', '.comment-reply-like', function () {
                 var str11 = Number(str1[0]) + 1;
                 var insertstr = '已赞(' + str11 + ')';
                 thisk.text(insertstr);
-                thisk.css('color', 'red');
+                thisk.css('color', '#7f1818');
             } else {
                 var str11 = Number(str1[0]) - 1;
                 var insertstr = '点赞(' + str11 + ')';
@@ -428,14 +523,14 @@ function strrepxuan(datas) {
         '<div class="comment-reply-text comment-reply-text-com">' + datas.content + '</div>' +
         '<div class="comment-reply-san"  style="margin-left: 22px;">';
     if (datas.is_like == true) {
-        str += '<span class="comment-reply-like" arlid="' + datas.id + '" style="color:red;cursor: pointer;">已赞(' + datas.likecount + ')</span>';
+        str += '<span class="comment-reply-like" arlid="' + datas.id + '" style="color:#7f1818;cursor: pointer;">已赞(' + datas.likecount + ')</span>';
     } else {
         str += '<span class="comment-reply-like" arlid="' + datas.id + '" style="cursor: pointer;color: #5f5f5f;">点赞(' + datas.likecount + ')</span>';
     }
 
     str += '<span class="comment-reply-reply" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;" arrid="' + datas.id + '">回复</span>';
     if (datas.is_me == true) {
-        str += '<span class="comment-reply-del" ardid="' + datas.id + '" style="color:red;margin-left: 10px;cursor: pointer;">删除</span>';
+        str += '<span class="comment-reply-del" ardid="' + datas.id + '" style="color:#5f5f5f;margin-left: 10px;cursor: pointer;">删除</span>';
     }
 
     str += '</div>' +
@@ -532,14 +627,14 @@ function comreplyxuan(data, arcomid, show = false) {
             '<div class="comment-reply-text comment-reply-text-com">' + datas[i].content + '</div>' +
             '<div class="comment-reply-san"  style="margin-left: 22px;">';
         if (datas[i].is_like == true) {
-            str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="color:red;cursor: pointer;">已赞(' + datas[i].likecount + ')</span>';
+            str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="color:#7f1818;cursor: pointer;">已赞(' + datas[i].likecount + ')</span>';
         } else {
             str += '<span class="comment-reply-like" arlid="' + datas[i].id + '" style="cursor: pointer;color: #5f5f5f;">点赞(' + datas[i].likecount + ')</span>';
         }
 
         str += '<span class="comment-reply-reply" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;" arrid="' + datas[i].id + '">回复</span>';
         if (datas[i].is_me == true) {
-            str += '<span class="comment-reply-del" ardid="' + datas[i].id + '" style="color:red;margin-left: 10px;cursor: pointer;">删除</span>';
+            str += '<span class="comment-reply-del" ardid="' + datas[i].id + '" style="color:#5f5f5f;margin-left: 10px;cursor: pointer;">删除</span>';
         }
 
         str += '</div>' +
@@ -602,6 +697,11 @@ $(".det-mid-right").on('click', '.comsan-del', function () {
                 return false;
             }
             ardthis.parent().parent().remove();
+            var str = $('.arcom-head').text().split("(");
+            var str1 = str[1].split(")");
+            var str11 = Number(str1[0]) - 1;
+            var insertstr = '评论(' + str11 + ')';
+            $('.arcom-head').text(insertstr);
             // indexComajax(realToken, ardid);
             alert('操作成功');
         },
@@ -765,14 +865,14 @@ function indexComXR(data) {
             '<div class="comment-comment">' + datas[i].content + '</div>' +
             '<div class="comment-san">';
         if (datas[i].is_like == true) {
-            str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;">已赞(' + datas[i].likecount + ')</span>';
+            str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:#7f1818;">已赞(' + datas[i].likecount + ')</span>';
         } else {
             str += '<span class="comsan-like" arlid="' + datas[i].id + '" artid="' + datas[i].articleid + '">点赞(' + datas[i].likecount + ')</span>';
         }
 
         str += '<span class="comsan-reply" arrid="' + datas[i].id + '" artid="' + datas[i].articleid + '" artf="2">回复(' + datas[i].replynum + ')</span>';
         if (datas[i].is_me == true) {
-            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:red;">删除</span>';
+            str += '<span class="comsan-del" ardid="' + datas[i].id + '" artid="' + datas[i].articleid + '" style="color:#5f5f5f;">删除</span>';
         }
 
         str += '</div>' +
@@ -783,12 +883,6 @@ function indexComXR(data) {
     if (data.pagination.total_page > 1 && (data.pagination.total_page != data.pagination.current)) {
         str += '<div class="ardshowmore" total-p="' + data.pagination.total_page + '" current-p="' + data.pagination.current + '" arid="' + datas[len - 1].articleid + '" lastid = "' + datas[len - 1].id + '">显示更多</div>';
     }
-    // '<div class="comment-reply">' +
-    //     '<div>' +
-    //     '<span>小三</span>回复<span>小茶</span>' +
-    //     '</div>' +
-    //     '<div class="comment-reply-text">第二条评论的回复dasdhjjjhhjkhjkhkasdsadsadsadsadas</div>' +
-    //     '</div>' +
     return str;
 }
 
@@ -1020,7 +1114,7 @@ function indexShow(data) {
             '<p class="arcate">分类:' + articles[i].article_cate.name + '</p>' +
             '<p>' +
             '<span class="arlikes" arid="' + articles[i].id + '">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
-            '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].pv + ')</span>' +
+            '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].article_com_count + ')</span>' +
             '</p>' +
             '</div>' +
             '</div>';
@@ -1033,7 +1127,9 @@ function rightTopShow(data) {
     var newArticles = data;
     var len = newArticles.length;
     for (var i = 0; i < len; i++) {
-        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span><span class="imglike"><img src="/static/home/img/like.png" alt=""></span></p>';
+        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span>'+
+        // '<span class="imglike"><img src="/static/home/img/like.png" alt=""></span>'+
+        '</p>';
     }
     return str;
 }
