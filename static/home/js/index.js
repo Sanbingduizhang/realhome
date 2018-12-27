@@ -1,58 +1,54 @@
-$(".con-left-cons").on('click', '.arlikes', function () {
-    var arid = $(this).attr('arid');
+//此点击事件暂时不使用
+// $(".con-left-cons").on('click', '.arlikes', function () {
+//     var arid = $(this).attr('arid');
 
-    var thisk = $(this);
+//     var thisk = $(this);
 
-    //判断用户是否登录
-    var realToken = getRealToken();
-    if (realToken == undefined || realToken == '' || realToken == 'null') {
-        realToken = '';
-    }
+//     //判断用户是否登录
+//     var realToken = getRealToken();
+//     if (realToken == undefined || realToken == '' || realToken == 'null') {
+//         realToken = '';
+//     }
 
-    //发送请求
-    $.ajax({
-        type: "POST",
-        url: getBaseUri() + "api/opera/likego",
-        dataType: "json",
-        headers: {
-            Authorization: 'Bearer ' + realToken,
-        },
-        data: {
-            arid: arid,
-            type: 1
-        },
-        success: function (response) {
-            if (response.code != 1) {
-                alert('操作失败');
-                return false;
-            }
-            var str = thisk.text().split("(");
-            var str1 = str[1].split(")");
+//     //发送请求
+//     $.ajax({
+//         type: "POST",
+//         url: getBaseUri() + "api/opera/likego",
+//         dataType: "json",
+//         headers: {
+//             Authorization: 'Bearer ' + realToken,
+//         },
+//         data: {
+//             arid: arid,
+//             type: 1
+//         },
+//         success: function (response) {
+//             if (response.code != 1) {
+//                 alert('操作失败');
+//                 return false;
+//             }
+//             var str = thisk.text().split("(");
+//             var str1 = str[1].split(")");
 
-            if (str[0] == '点赞') {
-                var str11 = Number(str1[0]) + 1;
-                var insertstr = '已赞(' + str11 + ')';
-                thisk.text(insertstr);
-                thisk.css('color', '#80406c');
-            } else {
-                var str11 = Number(str1[0]) - 1;
-                var insertstr = '点赞(' + str11 + ')';
-                thisk.text(insertstr);
-                thisk.css('color', 'rgb(117, 111, 111)');
+//             if (str[0] == '点赞') {
+//                 var str11 = Number(str1[0]) + 1;
+//                 var insertstr = '已赞(' + str11 + ')';
+//                 thisk.text(insertstr);
+//                 thisk.css('color', '#80406c');
+//             } else {
+//                 var str11 = Number(str1[0]) - 1;
+//                 var insertstr = '点赞(' + str11 + ')';
+//                 thisk.text(insertstr);
+//                 thisk.css('color', 'rgb(117, 111, 111)');
 
-            }
-            alert('操作成功');
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-
-
-
-    console.log(arid);
-    return false;
-});
+//             }
+//             alert('操作成功');
+//         },
+//         error: function (error) {
+//             console.log(error);
+//         }
+//     });
+// });
 
 $(".con-right-nr").on('click', '.imglike', function () {
     console.log(333);
@@ -923,79 +919,96 @@ headeCate();
 // });
 
 //首页左边主要内容显示
-$.ajax({
-    type: "GET",
-    url: getBaseUri() + "api/home/index",
-    dataType: "json",
-    success: function (data) {
-        if (data.code != 1) {
-            return false;
-        }
-        var str = indexShow(data.data.data);
-        $(".con-left-cons").html(str);
-        var yema = data.data.pagination;
-        $('.index-box').pagination({
-            pageCount: yema.total_page,
-            showData: yema.per_page,
-            current: yema.current_page,
-            coping: true,
-            callback: function (api) {
-                $.ajax({
-                    type: "GET",
-                    url: getBaseUri() + "api/home/index?page=" + api.getCurrent(),
-                    dataType: "json",
-                    success: function (data) {
-                        var str = indexShow(data.data.data);
-                        $(".con-left-cons").html(str);
-                    },
-                    error: function (jqXHR) {
-                        console.log(jqXHR);
-                    }
-                });
-            },
-        });
-    },
-    error: function (error) {
-        console.log(error);
+
+
+//发送请求
+indexshowajxa();
+function indexshowajxa() {
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        realToken = '';
     }
-});
-//首页右边最新显示
-$.ajax({
-    type: "GET",
-    url: getBaseUri() + "api/home/index-other?recornew=2",
-    dataType: "json",
-    success: function (data) {
-        if (data.code != 1) {
-            return false;
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/index",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        success: function (data) {
+            if (data.code != 1) {
+                return false;
+            }
+            var str = indexShow(data.data.data);
+            $(".con-left-cons").html(str);
+            var yema = data.data.pagination;
+            $('.index-box').pagination({
+                pageCount: yema.total_page,
+                showData: yema.per_page,
+                current: yema.current_page,
+                coping: true,
+                callback: function (api) {
+                    $.ajax({
+                        type: "GET",
+                        url: getBaseUri() + "api/home/index?page=" + api.getCurrent(),
+                        dataType: "json",
+                        headers: {
+                            Authorization: 'Bearer ' + realToken,
+                        },
+                        success: function (data) {
+                            var str = indexShow(data.data.data);
+                            $(".con-left-cons").html(str);
+                        },
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+                        }
+                    });
+                },
+            });
+        },
+        error: function (error) {
+            console.log(error);
         }
-        var str = rightTopShow(data.data.data);
-        $(".con-right-new").html(str);
-        var yema = data.data.pagination;
-        $('.new-box').pagination({
-            pageCount: yema.total_page,
-            showData: yema.per_page,
-            current: yema.current_page,
-            mode: 'fixed',
-            callback: function (api) {
-                $.ajax({
-                    type: "GET",
-                    url: getBaseUri() + "api/home/index-other?recornew=2&page=" + api.getCurrent(),
-                    dataType: "json",
-                    success: function (data) {
-                        var str = rightTopShow(data.data.data);
-                        $(".con-right-new").html(str);
-                    },
-                    error: function (jqXHR) {
-                        console.log(jqXHR);
-                    }
-                });
-            },
-        });
-    },
-    error: function (error) {
-        console.log(error);
-    }
-});
+    });
+    //首页右边最新显示
+    $.ajax({
+        type: "GET",
+        url: getBaseUri() + "api/home/index-other?recornew=2",
+        dataType: "json",
+        success: function (data) {
+            if (data.code != 1) {
+                return false;
+            }
+            var str = rightTopShow(data.data.data);
+            $(".con-right-new").html(str);
+            var yema = data.data.pagination;
+            $('.new-box').pagination({
+                pageCount: yema.total_page,
+                showData: yema.per_page,
+                current: yema.current_page,
+                mode: 'fixed',
+                callback: function (api) {
+                    $.ajax({
+                        type: "GET",
+                        url: getBaseUri() + "api/home/index-other?recornew=2&page=" + api.getCurrent(),
+                        dataType: "json",
+                        success: function (data) {
+                            var str = rightTopShow(data.data.data);
+                            $(".con-right-new").html(str);
+                        },
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+                        }
+                    });
+                },
+            });
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
 //首页右边推荐显示
 $.ajax({
     type: "GET",
@@ -1112,9 +1125,13 @@ function indexShow(data) {
             '...</div>' +
             '<div class="other">' +
             '<p class="arcate">分类:' + articles[i].article_cate.name + '</p>' +
-            '<p>' +
-            '<span class="arlikes" arid="' + articles[i].id + '">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>' +
-            '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].article_com_count + ')</span>' +
+            '<p>';
+        if (articles[i].is_like == true) {
+            str += '<span class="arlikes" arid="' + articles[i].id + '" style="color:#80406c;">已赞(' + articles[i].like + ')&nbsp;&nbsp;</span>';
+        } else {
+            str += '<span class="arlikes" arid="' + articles[i].id + '">点赞(' + articles[i].like + ')&nbsp;&nbsp;</span>';
+        }
+        str += '<span class="arcomments">&nbsp;&nbsp;评论(' + articles[i].article_com_count + ')</span>' +
             '</p>' +
             '</div>' +
             '</div>';
@@ -1127,9 +1144,9 @@ function rightTopShow(data) {
     var newArticles = data;
     var len = newArticles.length;
     for (var i = 0; i < len; i++) {
-        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span>'+
-        // '<span class="imglike"><img src="/static/home/img/like.png" alt=""></span>'+
-        '</p>';
+        str += '<p arid="' + newArticles[i].id + '"><span title="' + newArticles[i].content + '">' + newArticles[i].content.substring(0, 12) + '...</span>' +
+            // '<span class="imglike"><img src="/static/home/img/like.png" alt=""></span>'+
+            '</p>';
     }
     return str;
 }
