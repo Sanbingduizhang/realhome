@@ -227,8 +227,8 @@ $(".det-mid-right").on('click', '#replys-replygo', function () {
                 return false;
             }
             //如果成功,则把返回的数据写在前面
-            var str = strrepxuan();
-            $('.comment-reply-text-com').after(str);
+            var str = strrepxuan(response.data);
+            $('.comment-reply-text-reply').after(str);
         },
         error: function (error) {
             console.log(error);
@@ -236,25 +236,39 @@ $(".det-mid-right").on('click', '#replys-replygo', function () {
     });
 });
 
-function strrepxuan() {
-        var str = '<div class="comment-reply">'+
-                    '<div>'+
-                        '<span>瘪三</span>&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;<span></span>'+
-                    '</div>'+
-                    '<div class="comment-reply-text">发公司对方水电费水电费</div>'+
-                    '<div class="comment-reply-san" style="margin-left: 22px;">'+
-                        '<span class="comment-reply-like" arlid="3" style="cursor: pointer;color: #5f5f5f;">点赞(0)</span>'+
-                        '<span class="comment-reply-reply" arrid="12" artid="8" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;">回复</span>'+
-                        '<span class="comsan-del" ardid="3" artid="undefined" style="color:red;margin-left: 10px;">删除</span>'+
-                    '</div>'+
-                    '<div class="span-reply" style="display:none;">'+
-                        '<div>'+
-                            '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>'+
-                        '</div>'+
-                        '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arrplyid="3" pid="0">回复</div>'+
-                    '</div>'+
-                '</div>';
-                return str;
+function strrepxuan(datas) {
+    var str = '<div class="comment-reply">' +
+        '<div>';
+
+    if (datas.pid_arply == null) {
+        str += '<span>' + datas.reply_user.name + '</span>&nbsp;&nbsp;&nbsp;回复:&nbsp;&nbsp;&nbsp;<span></span>';
+    } else {
+        str += '<span>' + datas.reply_user.name + '</span>&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;<span>' + datas.pid_arply.name + ':</span>';
+    }
+
+    str += '</div>' +
+        '<div class="comment-reply-text comment-reply-text-com">' + datas.content + '</div>' +
+        '<div class="comment-reply-san"  style="margin-left: 22px;">';
+    if (datas.is_like == true) {
+        str += '<span class="comment-reply-like" arlid="' + datas.id + '" style="color:red;cursor: pointer;color: #5f5f5f;">已赞(' + datas.likecount + ')</span>';
+    } else {
+        str += '<span class="comment-reply-like" arlid="' + datas.id + '" style="cursor: pointer;color: #5f5f5f;">点赞(' + datas.likecount + ')</span>';
+    }
+
+    str += '<span class="comment-reply-reply" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;" arrid="' + datas.id + '">回复</span>';
+    if (datas.is_me == true) {
+        str += '<span class="comment-reply-del" ardid="' + datas.id + '" style="color:red;margin-left: 10px;cursor: pointer;">删除</span>';
+    }
+
+    str += '</div>' +
+        '<div class="span-reply" style="display:none;">' +
+        '<div>' +
+        '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>' +
+        '</div>' +
+        '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="' + datas.arcomid + '" pid="' + datas.id + '">回复</div></div>' +
+        '</div>' +
+        '</div>';
+    return str;
 }
 
 //对评论回复展示相关
@@ -343,7 +357,7 @@ function comreplyxuan(data, arcomid) {
 
         str += '<span class="comment-reply-reply" artf-span="2" style="cursor: pointer;color: #5f5f5f;margin-left: 10px;" arrid="' + datas[i].id + '">回复</span>';
         if (datas[i].is_me == true) {
-            str += '<span class="comsan-del" ardid="' + datas[i].id + '" style="color:red;margin-left: 10px;cursor: pointer;">删除</span>';
+            str += '<span class="comment-reply-del" ardid="' + datas[i].id + '" style="color:red;margin-left: 10px;cursor: pointer;">删除</span>';
         }
 
         str += '</div>' +
@@ -351,7 +365,7 @@ function comreplyxuan(data, arcomid) {
             '<div>' +
             '<textarea name="" id="text-span-replys" style="resize: none;margin-top: 8px;width: 200px;height: 80px;"></textarea>' +
             '</div>' +
-            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="' + arcomid + '" pid="' + datas[i].id + '">回复</div></div>' +
+            '<div id="replys-span-replygo" style="margin-left: 165px;border-radius: 10px;width: 35px;height: 25px;text-align: center;line-height: 25px;border: 1px solid;cursor: pointer;" arcomid="' + datas[i].arcomid + '" pid="' + datas[i].id + '">回复</div></div>' +
             '</div>' +
             '</div>';
 
@@ -399,6 +413,42 @@ $(".det-mid-right").on('click', '.comsan-del', function () {
         },
         data: {
             arcid: ardid,
+        },
+        success: function (response) {
+            if (response.code != 1) {
+                alert('操作失败');
+                return false;
+            }
+            ardthis.parent().parent().remove();
+            alert('操作成功');
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
+
+//删除属于自己的回复
+$(".det-mid-right").on('click', '.comment-reply-del', function () {
+    var ardid = $(this).attr("ardid");
+    var ardthis = $(this);
+
+    //判断用户是否登录
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        alert('请登录');
+        return false;
+    }
+    //发送请求
+    $.ajax({
+        type: "POST",
+        url: getBaseUri() + "api/opera/arrepdel",
+        dataType: "json",
+        headers: {
+            Authorization: 'Bearer ' + realToken,
+        },
+        data: {
+            arrid: ardid,
         },
         success: function (response) {
             if (response.code != 1) {
