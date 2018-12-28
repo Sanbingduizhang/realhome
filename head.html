@@ -71,15 +71,21 @@
             '</span>' +
             '</p>' +
             '<p>' +
+            '<span>昵称</span>' +
+            '<span style="margin-left:5px;">' +
+            '<input type="text" name="" id="zcmc" class="inputsub">' +
+            '</span>' +
+            '</p>' +
+            '<p>' +
             '<span>邮箱</span>' +
             '<span style="margin-left:5px;">' +
             '<input type="email" name="email" id="zcemail" multiple class="inputsub">' +
             '</span>' +
             '</p>' +
             '<p>' +
-            '<span>昵称</span>' +
+            '<span style="font-size: 16px;">邮箱验证码</span>' +
             '<span style="margin-left:5px;">' +
-            '<input type="text" name="" id="zcmc" class="inputsub">' +
+            '<input type="text" name="emailyz" id="zcemailyz" class="inputsub" style="width: 126px;">' +
             '</span>' +
             '</p>' +
             '</div>' +
@@ -89,44 +95,8 @@
         $("#bgsub").show();
     });
 
-    function blur() {
-
-    }
     //鼠标离开就验证
     //验证账号
-    $('#bgsub').on('blur','#zcusername',function () {
-        var user = $("#zcusername").val();
-        // 账号的正则验证
-        var reguser = "^[a-zA-Z]{5,16}$";
-        var reuser = new RegExp(reguser);
-        if (!reuser.test(user)) {
-            alert('账号由5-16位字母组成');
-            return false;
-        }
-    });
-    //验证密码
-    $('#bgsub').on('blur','#zcpassword',function () {
-        var pwd = $("#zcpassword").val();
-        // 账号的正则验证
-        var regepwd = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
-        var repwd = new RegExp(regepwd);
-        if (!repwd.test(pwd)) {
-            alert("密码由5-16位字母、数字、符号组成");
-            return false;
-        }
-    });
-    //验证昵称
-    $('#bgsub').on('blur','#zcmc',function () {
-        var mc = $("#zcmc").val();
-        // 账号的正则验证
-        var regemc = "^[\u4E00-\u9FA5\uF900-\uFA2D]{2,12}$";
-        var repmc = new RegExp(regemc);
-        if (!repmc.test(mc)) {
-            alert("昵称由2-12位中文组成");
-            return false;
-        }
-    });
-    //验证邮箱
     // $('#bgsub').on('blur','#zcusername',function () {
     //     var user = $("#zcusername").val();
     //     // 账号的正则验证
@@ -134,6 +104,39 @@
     //     var reuser = new RegExp(reguser);
     //     if (!reuser.test(user)) {
     //         alert('账号由5-16位字母组成');
+    //         return false;
+    //     }
+    // });
+    //验证密码
+    // $('#bgsub').on('blur','#zcpassword',function () {
+    //     var pwd = $("#zcpassword").val();
+    //     // 账号的正则验证
+    //     var regepwd = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
+    //     var repwd = new RegExp(regepwd);
+    //     if (!repwd.test(pwd)) {
+    //         alert("密码由5-16位字母、数字、符号组成");
+    //         return false;
+    //     }
+    // });
+    //验证昵称
+    // $('#bgsub').on('blur','#zcmc',function () {
+    //     var mc = $("#zcmc").val();
+    //     // 账号的正则验证
+    //     var regemc = "^[\u4E00-\u9FA5\uF900-\uFA2D]{2,12}$";
+    //     var repmc = new RegExp(regemc);
+    //     if (!repmc.test(mc)) {
+    //         alert("昵称由2-12位中文组成");
+    //         return false;
+    //     }
+    // });
+    //验证邮箱
+    // $('#bgsub').on('blur','#zcemail',function () {
+    //     var user = $("#zcemail").val();
+    //     // 账号的正则验证
+    //     var reguser = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$";
+    //     var reuser = new RegExp(reguser);
+    //     if (!reuser.test(user)) {
+    //         alert('请输入正确的邮箱');
     //         return false;
     //     }
     // });
@@ -212,29 +215,15 @@
         var user = $("#zcusername").val();
         var pwd = $("#zcpassword").val();
         var mc = $("#zcmc").val();
-        // 账号的正则验证
-        var reguser = "^[a-zA-Z]{5,16}$";
-        var reuser = new RegExp(reguser);
-        if (!reuser.test(user)) {
-            alert('账号由5-16位字母组成');
+        var email = $("#zcemail").val();
+        var emailyz = $("#zcemailyz").val();
+        
+        //验证不通过,直接退出
+        var returnRes = zcyz(user,pwd,mc,email);
+        if (returnRes == false) {
             return false;
         }
-        //密码的正则验证
-        var regepwd = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
-        var repwd = new RegExp(regepwd);
-        if (!repwd.test(pwd)) {
-            alert("密码由5-16位字母、数字、符号组成");
-            return false;
-        }
-        //账号验证
-        var regemc = "^[\u4E00-\u9FA5\uF900-\uFA2D]{2,12}$";
-        var repmc = new RegExp(regemc);
-        if (!repmc.test(mc)) {
-            alert("昵称由2-12位中文组成");
-            return false;
-        }
-
-        return false;
+        // return false;
         //发送登录请求
         $.ajax({
             type: "POST",
@@ -259,6 +248,42 @@
             }
         });
     });
+
+
+    //注册验证记录
+    function zcyz(user,pwd,mc,email) {
+        // 账号的正则验证
+        var reguser = "^[a-zA-Z]{5,16}$";
+        var reuser = new RegExp(reguser);
+        if (!reuser.test(user)) {
+            alert('账号由5-16位字母组成');
+            return false;
+        }
+        //密码的正则验证
+        var regepwd = "^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{5,16}$";
+        var repwd = new RegExp(regepwd);
+        if (!repwd.test(pwd)) {
+            alert("密码由5-16位字母、数字、符号组成");
+            return false;
+        }
+        //昵称验证
+        var regemc = "^[\u4E00-\u9FA5\uF900-\uFA2D]{2,12}$";
+        var repmc = new RegExp(regemc);
+        if (!repmc.test(mc)) {
+            alert("昵称由2-12位中文组成");
+            return false;
+        }
+        //邮箱验证
+        var regemail= /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        var reemail = new RegExp(regemail);
+        if (!reemail.test(email)) {
+            alert('请输入正确的邮箱');
+            return false;
+        }
+        //验证成功返回true
+        return true;
+    }
+
 
 
     //退出事件

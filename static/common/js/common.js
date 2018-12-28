@@ -18,6 +18,14 @@ function getRealToken() {
     return $.cookie('real-home-token');
 }
 
+//判断token
+function pdRealToken(sub=false) {
+    var realToken = getRealToken();
+    if (realToken == undefined || realToken == '' || realToken == 'null') {
+        return '';
+    }
+    return realToken;
+}
 //获取url地址?后某一个参数的方法
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
