@@ -1,3 +1,6 @@
+document.write("<script language=javascript src='/static/common/js/env.js'></script>");
+
+
 //加在首页和尾页
 $("#top").load("head.html");
 $("#buttom").load("foot.html");
@@ -7,8 +10,7 @@ $("#bgsub").on('click','.button-close',function () {
 });
 
 function getBaseUri() {
-    return "http://realadmin.com/";
-    // return "http://192.168.223.128:8082/";
+    return setBaseUrl();
 }
 
 ///////------------方法---------------//1
