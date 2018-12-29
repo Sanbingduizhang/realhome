@@ -28,7 +28,10 @@ function getUserMsgAll() {
         },
         success: function (response) {
             if (response.code == 1) {
-                var age = compareDate(response.data.birthday);
+                var age = 0;
+                if (response.data.birthday != null) {
+                    age = compareDate(response.data.birthday);
+                }
                 var usercode = response.data.usercode;
                 var name = response.data.name;
                 if (name.length > 6) {

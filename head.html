@@ -82,12 +82,6 @@
             '<input type="email" name="email" id="zcemail" multiple class="inputsub">' +
             '</span>' +
             '</p>' +
-            '<p>' +
-            '<span style="font-size: 16px;">邮箱验证码</span>' +
-            '<span style="margin-left:5px;">' +
-            '<input type="text" name="emailyz" id="zcemailyz" class="inputsub" style="width: 126px;">' +
-            '</span>' +
-            '</p>' +
             '</div>' +
             '<div class="sub-bottom">' +
             '<p class="zhucego">立即注册</p>' +
@@ -216,7 +210,6 @@
         var pwd = $("#zcpassword").val();
         var mc = $("#zcmc").val();
         var email = $("#zcemail").val();
-        var emailyz = $("#zcemailyz").val();
         
         //验证不通过,直接退出
         var returnRes = zcyz(user,pwd,mc,email);
@@ -232,7 +225,8 @@
             data: {
                 usercode: user,
                 password: pwd,
-                nc: mc,
+                name: mc,
+                email: email,
             },
             success: function (data) {
                 if (data.code == 1) {
@@ -253,10 +247,10 @@
     //注册验证记录
     function zcyz(user,pwd,mc,email) {
         // 账号的正则验证
-        var reguser = "^[a-zA-Z]{5,16}$";
+        var reguser = "^[a-zA-Z]{4,16}$";
         var reuser = new RegExp(reguser);
         if (!reuser.test(user)) {
-            alert('账号由5-16位字母组成');
+            alert('账号由4-16位字母组成');
             return false;
         }
         //密码的正则验证
